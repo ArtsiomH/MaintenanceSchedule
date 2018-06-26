@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceScheduleDataLayer", "MaintenanceScheduleDataLayer\MaintenanceScheduleDataLayer.csproj", "{8AD82AC1-E71A-4337-B99A-7203EB44F2C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaintenanceSchedule", "MaintenanceSchedule\MaintenanceSchedule.csproj", "{B03980D7-0863-4C6C-B60D-C036241176CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AD82AC1-E71A-4337-B99A-7203EB44F2C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD82AC1-E71A-4337-B99A-7203EB44F2C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD82AC1-E71A-4337-B99A-7203EB44F2C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD82AC1-E71A-4337-B99A-7203EB44F2C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B03980D7-0863-4C6C-B60D-C036241176CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B03980D7-0863-4C6C-B60D-C036241176CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B03980D7-0863-4C6C-B60D-C036241176CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B03980D7-0863-4C6C-B60D-C036241176CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

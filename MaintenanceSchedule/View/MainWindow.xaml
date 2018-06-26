@@ -1,0 +1,48 @@
+﻿<Window x:Class="MaintenanceSchedule.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System.Collections;assembly=mscorlib"
+        xmlns:local="clr-namespace:MaintenanceSchedule"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        mc:Ignorable="d"
+        Title="Техобслуживание релейного оборудования" Name="window" MinHeight="600" MinWidth="1200">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="10, 20, 10, 10"/>
+        </Style>
+    </Window.Resources>    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" Grid.RowSpan="7" BorderThickness="2" BorderBrush="Gray">
+            <ContentControl  Background="AliceBlue"  Content="{Binding ContentControl.Content}"/>
+        </Border>        
+        <Button Content="Подстанции" Command="{Binding ShowSubstations}" CommandParameter="{Binding ContentControl.Content}"/>
+        <Button Content="Присоединения" Grid.Row="1" Command="{Binding ShowAttachments}" CommandParameter="{Binding ContentControl.Content}"/>
+        <Button Content="Релейные устройства" Grid.Row="2" Command="{Binding ShowDevices}" CommandParameter="{Binding ElementName=window}"/>
+        <Button Content="Дополнительные устройства" Grid.Row="3" Command="{Binding ShowAdditionalDevices}" CommandParameter="{Binding ContentControl.Content}"/>
+        <Button Content="Дополнительные работы" Grid.Row="4" Command="{Binding ShowCombineDevices}" CommandParameter="{Binding ContentControl.Content}"/>
+        <Button Grid.Row="5" Command="{Binding ShowMaintenanceCycles}" CommandParameter="{Binding ContentControl.Content}">
+            <Button.Content>
+                <TextBlock TextAlignment="Center">
+                    Циклы технического
+                    <LineBreak/>
+                    обслуживания
+                </TextBlock>
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>

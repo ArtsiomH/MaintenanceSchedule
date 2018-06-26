@@ -1,0 +1,118 @@
+﻿<UserControl x:Class="MaintenanceSchedule.View.AttachmentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaintenanceSchedule.View"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition MaxHeight="70" MinHeight="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="350"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.RowSpan="2" Grid.Column="1" Width="10" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <Label>
+            <DataGrid Name="dataGrid" 
+                      ItemsSource="{Binding Attachments}"
+                      SelectedItem="{Binding SelectedAttachment, Mode=TwoWay}"
+                      ColumnWidth="*"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Присоединение" ElementStyle="{StaticResource elementStyle}" Binding="{Binding Name}">                        
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Подстанция" Binding="{Binding Substation.Name}" MinWidth="120"/>
+                    <DataGridTextColumn Header="Класс Напряжения" Binding="{Binding VoltageClass.Name}"/>
+                    <DataGridTextColumn Binding="{Binding ManagementOrganization.Name}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock>                                
+                                Организация
+                                <LineBreak/>
+                                управления
+                            </TextBlock>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Label>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Добавить" Grid.Row="1" Command="{Binding Add}" Margin="10" Width="100"/>
+            <Button Content="Изменить" Grid.Row="1" Command="{Binding Change}" Margin="10" Width="100"/>
+            <Button Content="Удалить" Grid.Row="1" Command="{Binding Delete}" Margin="10" Width="100"/>
+        </StackPanel>
+        <TabControl Grid.Column="2" Grid.RowSpan="2">
+            <TabItem Header="Список устройств" Content="{StaticResource relayDevices}"/>
+            <TabItem Header="Список дополнительных устройств">
+                <DataGrid ItemsSource="{Binding AdditionalDeviceModels}"
+                          TextBlock.TextAlignment="Center"
+                          MaxWidth="800"
+                          ColumnWidth="*"
+                          ColumnHeaderStyle="{StaticResource columnHeader}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" ElementStyle="{StaticResource elementStyle}" Binding="{Binding Name}" MinWidth="80" MaxWidth="140"/>
+                        <DataGridTextColumn Header="Год ввода" Binding="{Binding InputYear}" MinWidth="80"/>
+                        <DataGridTextColumn Binding="{Binding LastRecovery, StringFormat={}{0:d MMMM yyyy}, ConverterCulture=ru-Ru}" MinWidth="105">
+                            <DataGridTextColumn.Header>
+                                <TextBlock>
+                                    Дата последнего
+                                    <LineBreak/>
+                                    восстановления
+                                </TextBlock>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding LastMaintenanceDate, StringFormat={}{0:d MMMM yyyy}, ConverterCulture=ru-Ru}" MinWidth="110">
+                            <DataGridTextColumn.Header>
+                                <TextBlock>
+                                    Дата последнего
+                                    <LineBreak/>
+                                    технического
+                                    <LineBreak/>
+                                    обслуживания
+                                </TextBlock>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding LastMaintenanceType.Name}" MinWidth="100">
+                            <DataGridTextColumn.Header>
+                                <TextBlock>
+                                    Тип последнего
+                                    <LineBreak/>
+                                    технического
+                                    <LineBreak/>
+                                    обслуживания
+                                </TextBlock>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding ActualMaintenanceDate, StringFormat={}{0:d MMMM yyyy}, ConverterCulture=ru-Ru}" MinWidth="110">
+                            <DataGridTextColumn.Header>
+                                <TextBlock>
+                                    Дата следующего
+                                    <LineBreak/>
+                                    технического
+                                    <LineBreak/>
+                                    обслуживания
+                                </TextBlock>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn  Binding="{Binding ActualMaintenanceType.Name}" MinWidth="105">
+                            <DataGridTextColumn.Header>
+                                <TextBlock>
+                                    Тип следующего
+                                    <LineBreak/>
+                                    технического
+                                    <LineBreak/>
+                                    обслуживания
+                                </TextBlock>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>           
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<Window x:Class="MaintenanceSchedule.View.ChangeObjectViews.SelectingNewMaintenanceCycleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSchedule.View"
+        mc:Ignorable="d"
+        Title="SelectingNewMaintenanceCycleView" Name="window" Height="160" Width="350" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите новый цикл ТО:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycles}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding MaintenanceCycle, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
+                              SelectedValue="{Binding  MaintenanceCycle.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
+                    Command="{Binding AddMaintenanceCycle}"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Right">
+            <Button Content="Сохранить" IsDefault="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Save}" CommandParameter="{Binding ElementName=window}"/>
+            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=window}"/>
+        </StackPanel>
+    </Grid>
+</Window>

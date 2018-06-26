@@ -1,0 +1,31 @@
+﻿<Window x:Class="MaintenanceSchedule.View.SelectingDateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSchedule.View"
+        mc:Ignorable="d"
+        Title="SelectingDateView" Height="160" Width="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите дату осмотра:" FontSize="15"/>
+            <DatePicker Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedDateFormat="Short" Grid.Row="1"/>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,10,0,0" HorizontalAlignment="Right">
+            <Button Content="Сохранить" IsDefault="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Save}" CommandParameter="{Binding ElementName=window}"/>
+            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=window}"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,91 @@
+﻿<Window x:Class="MaintenanceSchedule.View.ChangeObjectViews.AttachmentView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSchedule.View.ChangeObjectViews"
+        mc:Ignorable="d"
+        Title="AttachmentView" Name="window" Height="375" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Content="Название:" FontSize="15"/>
+            <TextBox Grid.Row="1" FontSize="15" 
+                     Margin="0, 0, 10, 0"
+                     Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите подстанцию:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding Substations}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding Substation, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  Attachment.Substation.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1"  Margin="5,0"
+                    Command="{Binding AddTeam}"/>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите класс напряжения:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding VoltageClasses}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding VoltageClass, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  Attachment.VoltageClass.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1"  Margin="5,0"
+                    Command="{Binding AddTeam}"/>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите организацию управления:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding ManagementOrganizations}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding ManagementOrganization, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  Attachment.ManagementOrganization.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1"  Margin="5,0"
+                    Command="{Binding AddTeam}"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Right">
+            <Button Content="Сохранить" IsDefault="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Save}" CommandParameter="{Binding ElementName=window}"/>
+            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=window}"/>
+        </StackPanel>
+    </Grid>
+</Window>

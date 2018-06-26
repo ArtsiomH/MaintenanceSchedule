@@ -1,0 +1,150 @@
+﻿<Window x:Class="MaintenanceSchedule.View.ChangeObjectViews.MaintenanceCycleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSchedule.View.ChangeObjectViews"
+        mc:Ignorable="d"
+        Name="window"
+        Title="MaintenanceCycleView" 
+        Height="380" 
+        Width="670" 
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Background" Value="DarkGray"/>
+        </Style>
+        <Style x:Name="textBlock" TargetType="TextBlock">
+            
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Сокращенное название цикла ТО:" Grid.ColumnSpan="2" FontSize="15"/>
+        <TextBox Grid.Row="1" Grid.ColumnSpan="2" FontSize="15">
+            <TextBox.Text>
+                <Binding Path="ShowName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" ValidatesOnDataErrors="True"/>
+            </TextBox.Text>
+        </TextBox>
+
+        <Label Content="Название цикла ТО" Grid.Row="2" Grid.ColumnSpan="2" FontSize="15"/>
+        <TextBox Grid.Row="3" Grid.ColumnSpan="2" FontSize="15">
+            <TextBox.Text>
+                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" ValidatesOnDataErrors="True"/>
+            </TextBox.Text>
+        </TextBox>
+
+        <Label Content="Название цикла ТО" Grid.Row="4" Grid.ColumnSpan="2" FontSize="15"/>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" 
+                    ToolTip="Необходимо заполнить минимум два поля">
+            <Border>
+                <StackPanel>                    
+                    <TextBlock Text="0 Год" Margin="1"/>                    
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}"
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[0]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="1 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[1]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="2 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}"
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[2]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="3 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[3]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="4 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[4]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="5 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[5]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="6 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                              
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[6]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="7 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                             
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[7]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+            <Border>
+                <StackPanel>
+                    <TextBlock Text="8 Год" Margin="1"/>
+                    <ComboBox ItemsSource="{Binding MaintenanceTypes}" 
+                              DisplayMemberPath="Name"                             
+                              SelectedValue="{Binding  MaintenanceCycleModel.MaintenanceTypes[8]}"
+                              SelectedValuePath="Name"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <Button Grid.Row="8" Content="Добавить тип" HorizontalAlignment="Left" Width="150" Margin="5" FontSize="15" Focusable="False" Command="{Binding AddType}"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right">
+            <Button Content="Сохранить" IsDefault="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Save}" CommandParameter="{Binding ElementName=window}"/>
+            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=window}"/>
+        </StackPanel>        
+    </Grid>
+</Window>

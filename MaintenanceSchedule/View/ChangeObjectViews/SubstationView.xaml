@@ -1,0 +1,143 @@
+﻿<Window x:Class="MaintenanceSchedule.View.ChangeObjectViews.SubstationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSchedule.View.ChangeObjectViews"
+        mc:Ignorable="d"
+        Title="SubstationView" Name="window" Height="585" Width="450" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="55"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Content="Название подстанции:" FontSize="15"/>
+            <TextBox Grid.Row="1" FontSize="15">
+                <TextBox.Text>
+                    <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>            
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Content="Год ввода в работу:" FontSize="15"/>
+            <TextBox Grid.Row="1" FontSize="15"                      
+                     Text="{Binding InputYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        </Grid>
+        
+        <Grid Grid.Row="2"> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите руководителя бригады:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding Teams}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding Team, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  Substation.Team.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1"  Margin="5,0"
+                    Command="{Binding AddTeam}"/>
+        </Grid>
+        
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите тип трансформатора:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding TransformerTypes}"
+                              DisplayMemberPath="Name"   
+                              SelectedItem="{Binding TransformerType, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  Substation.TransformerType.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
+                    Command="{Binding AddTransformerType}"/>
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Content="Количество трансформаторов:" FontSize="15"/>
+            <TextBox Grid.Row="1" FontSize="15"                      
+                     Text="{Binding TransformerCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+        </Grid>
+        
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите РЭС:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding DistrictElectricalNetworks}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding DistrictElectricalNetwork, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  Substation.DistrictElectricalNetwork.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
+                    Command="{Binding AddDistrictElectricalNetwork}"/>
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="250"/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите частоту осмотров в год:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding InspectionsFrequencies}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding InspectionsFrequency, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
+                              SelectedValue="{Binding  Substation.InspectionsFrequency.Name}"
+                              SelectedValuePath="Name"/>
+            <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
+                    Command="{Binding AddInspectionsFrequency}"/>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="7" HorizontalAlignment="Right">
+            <Button Content="Сохранить" IsDefault="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Save}" CommandParameter="{Binding ElementName=window}"/>
+            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=window}"/>
+        </StackPanel>
+    </Grid>
+</Window>

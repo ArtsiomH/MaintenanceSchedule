@@ -1,0 +1,46 @@
+﻿<Window x:Class="MaintenanceSchedule.View.MarkRecordView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSchedule.View"
+        mc:Ignorable="d"
+        Title="MarkRecordView" Name="window" Height="230" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Label Content="Выберите вид проверки:" FontSize="15"/>
+            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceTypes}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding MaintenanceType, Mode=TwoWay, ValidatesOnDataErrors=True}"
+                              SelectedValue="{Binding  MaintenanceType.Name}"
+                              SelectedValuePath="Name"/>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Content="Выберите дату проверки:" FontSize="15"/>
+            <DatePicker Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" SelectedDateFormat="Short" Grid.Row="1"/>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,10,0,0" HorizontalAlignment="Right">
+            <Button Content="Сохранить" IsDefault="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Save}" CommandParameter="{Binding ElementName=window}"/>
+            <Button Content="Отмена" IsCancel="True" Width="80" Margin="5" FontSize="15" Focusable="False" Command="{Binding Cancel}" CommandParameter="{Binding ElementName=window}"/>
+        </StackPanel>
+    </Grid>
+</Window>

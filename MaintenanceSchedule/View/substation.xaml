@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MaintenanceSchedule.View"
+                    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+
+
+
+    <DataGrid x:Key="Devices" ItemsSource="{Binding Devices}" AutoGenerateColumns="False" ColumnWidth="*">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Устройство" Binding="{Binding Name}"/>
+            <DataGridTextColumn Header="Присоединение" Binding="{Binding Attachment.Name}"/>
+            <DataGridTextColumn Header="Элементная база" Binding="{Binding ElementBase.Name}"/>
+            <DataGridTextColumn Header="Тип устройства" Binding="{Binding DeviceType.Name}"/>
+            <DataGridTextColumn Header="Производитель" Binding="{Binding Manufacturer.Name}"/>
+            <DataGridTextColumn Header="Год ввода" Binding="{Binding InputYear}"/>
+            <DataGridTextColumn Header="Год окончания срока службы" Binding="{Binding ExpiryYear}"/>
+            <DataGridTextColumn Header="Полный срок службы" Binding="{Binding MaintenancePeriod}"/>
+            <DataGridTextColumn Header="Периодичность ТО" Binding="{Binding NormalMaintenanceCycle.ShowName}"/>
+            <DataGridTextColumn Header="Дата последнего ТО" Binding="{Binding LastRecovery}"/>
+            <DataGridTextColumn Header="Акт о продлении срока службы" Binding="{Binding Act.Name}"/>            
+        </DataGrid.Columns>
+    </DataGrid>    
+</ResourceDictionary>

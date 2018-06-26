@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="MaintenanceSchedule.View.SubstationsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MaintenanceSchedule.View"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition MaxHeight="70" MinHeight="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="350"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.RowSpan="2" Grid.Column="1" Width="10" VerticalAlignment="Stretch" HorizontalAlignment="Center"/>
+        <Label>
+            <DataGrid x:Name="dataGrid" 
+                      ItemsSource="{Binding Substations}" 
+                      SelectedItem="{Binding SelectedSubstation, Mode=TwoWay}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                      ColumnWidth="*">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Подстанция" Binding="{Binding Name}" MinWidth="80"/>
+                    <DataGridTextColumn Header="Бригада" Binding="{Binding Team.Name}" MinWidth="50"/>                   
+                </DataGrid.Columns>
+            </DataGrid>
+        </Label>       
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Добавить" Grid.Row="1" Command="{Binding Add}" Margin="10" Width="100"/>
+            <Button Content="Изменить" Grid.Row="1" Command="{Binding Change}" Margin="10" Width="100"/>
+            <Button Content="Удалить" Grid.Row="1" Command="{Binding Delete}" Margin="10" Width="100"/>
+        </StackPanel>
+        <TabControl Grid.Column="2" Grid.RowSpan="2">
+            <TabItem Header="Подробное описание">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                        <RowDefinition Height="28"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Бригадир"/>
+                    <TextBox Grid.Row="1" Text="{Binding SelectedSubstation.Team.Leader}" IsReadOnly="True"/>
+                    <Label Grid.Row="2" Content="РЭС:"/>
+                    <TextBox Grid.Row="3" Text="{Binding SelectedSubstation.DistrictElectricalNetwork.Name}" IsReadOnly="True" />
+                    <Label Grid.Row="4" Content="Тип трансформатора:"/>
+                    <TextBox Grid.Row="5" Text="{Binding SelectedSubstation.TransformerType.Name}" IsReadOnly="True"/>
+                    <Label Grid.Row="6" Content="Количество трансформаторов:"/>
+                    <TextBox Grid.Row="7" Text="{Binding SelectedSubstation.TransformerCount}" IsReadOnly="True"/>
+                    <Label Grid.Row="8" Content="Частота проверок:"/>
+                    <TextBox Grid.Row="9" Text="{Binding SelectedSubstation.InspectionsFrequency.Name}" IsReadOnly="True"/>                                      
+                </Grid>
+            </TabItem>
+            <TabItem Header="Список присоединений">
+                <DataGrid ItemsSource="{Binding Attachments}" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                          ColumnWidth="*"
+                          ColumnHeaderStyle="{StaticResource columnHeader}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Присоединение" Binding="{Binding Name}" MinWidth="100"/>
+                        <DataGridTextColumn Binding="{Binding ManagementOrganization.Name}" MinWidth="85">
+                            <DataGridTextColumn.Header>
+                                <TextBlock TextAlignment="Center">
+                                    Организация
+                                    <LineBreak/>
+                                    управления
+                                </TextBlock>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Класс напряжения" Binding="{Binding VoltageClass.Name}" MinWidth="80"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Дополнительные работы" Content="{StaticResource additionalWorks}"/>
+            <TabItem Header="Список осмотров">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid ItemsSource="{Binding MaintenanceRecords}" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                          ColumnWidth="*"
+                          TextBlock.TextAlignment="Center"
+                          ColumnHeaderStyle="{StaticResource columnHeader}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Дата осмотра" MinWidth="80">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding Converter="{StaticResource ResourceKey=inspectionDateConverter}">
+                                        <Binding Path="PlannedMaintenanceDate"/>
+                                        <Binding Path="ActualMaintenanceDate"/>
+                                        <Binding Path="IsPlanned"/>
+                                        <Binding ElementName="dataGrid" Path="SelectedItem.InspectionsFrequency.Count" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата выполнения осмотра" 
+                                            Binding="{Binding ActualMaintenanceDate, StringFormat={}{0:d MMMM yyyy}, ConverterCulture=ru-Ru}" 
+                                            MinWidth="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Отметить осмотр" Grid.Row="1" Command="{Binding Mark}" Margin="10" Width="120"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

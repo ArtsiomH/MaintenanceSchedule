@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8AD82AC1-E71A-4337-B99A-7203EB44F2C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MaintenanceScheduleDataLayer</RootNamespace>
+    <AssemblyName>MaintenanceScheduleDataLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Windows\assembly\GAC\Microsoft.Office.Interop.Excel\12.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EFContext\MaintenanceScheduleContext.cs" />
+    <Compile Include="EFContext\MaintenanceScheduleInitializer.cs" />
+    <Compile Include="Entities\Act.cs" />
+    <Compile Include="Entities\AdditionalDevice.cs" />
+    <Compile Include="Entities\AdditionalWork.cs" />
+    <Compile Include="Entities\Attachment.cs" />
+    <Compile Include="Entities\MaintainedEquipmentByCycle.cs" />
+    <Compile Include="Entities\RelayDevice.cs" />
+    <Compile Include="Entities\DeviceType.cs" />
+    <Compile Include="Entities\DistrictElectricalNetwork.cs" />
+    <Compile Include="Entities\ElementBase.cs" />
+    <Compile Include="Entities\Device.cs" />
+    <Compile Include="Entities\InspectionsFrequency.cs" />
+    <Compile Include="Entities\MaintainedEquipment.cs" />
+    <Compile Include="Entities\MaintenanceRecord.cs" />
+    <Compile Include="Entities\MaintenanceType.cs" />
+    <Compile Include="Entities\MaintenanceYear.cs" />
+    <Compile Include="Entities\ManagementOrganization.cs" />
+    <Compile Include="Entities\Manufacturer.cs" />
+    <Compile Include="Entities\MaintenanceCycle.cs" />
+    <Compile Include="Entities\Substation.cs" />
+    <Compile Include="Entities\Team.cs" />
+    <Compile Include="Entities\TransformerType.cs" />
+    <Compile Include="Entities\VoltageClass.cs" />
+    <Compile Include="Enum\MaintainedEquipmentEnum.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadExcel.cs" />
+    <Compile Include="Repositories\ActRepository.cs" />
+    <Compile Include="Repositories\AdditionalDeviceRepository.cs" />
+    <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Repositories\AdditionalWorkRepository.cs" />
+    <Compile Include="Repositories\DeviceRepository.cs" />
+    <Compile Include="Repositories\DeviceTypeRepository.cs" />
+    <Compile Include="Repositories\DistrictElectricalNetworkRepository.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\ElementBaseRepository.cs" />
+    <Compile Include="Repositories\InspectionsFrequencyRepository.cs" />
+    <Compile Include="Repositories\MaintainedEquipmentByCycleRepository.cs" />
+    <Compile Include="Repositories\MaintainedEquipmentRepository.cs" />
+    <Compile Include="Repositories\MaintenanceCycleRepository.cs" />
+    <Compile Include="Repositories\MaintenanceRecordRepository.cs" />
+    <Compile Include="Repositories\MaintenanceTypeRepository.cs" />
+    <Compile Include="Repositories\MaintenanceYearRepository.cs" />
+    <Compile Include="Repositories\ManagementOrganizationRepository.cs" />
+    <Compile Include="Repositories\ManufacturerRepository.cs" />
+    <Compile Include="Repositories\RelayDeviceRepository.cs" />
+    <Compile Include="Repositories\SubstationRepository.cs" />
+    <Compile Include="Repositories\TeamRepository.cs" />
+    <Compile Include="Repositories\TransformerTypeRepository.cs" />
+    <Compile Include="Repositories\VoltageClassRepository.cs" />
+    <Compile Include="UpdateEntityReflection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
