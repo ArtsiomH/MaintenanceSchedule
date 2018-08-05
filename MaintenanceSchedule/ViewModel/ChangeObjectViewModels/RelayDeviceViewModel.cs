@@ -27,6 +27,9 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
         private ObservableCollection<Manufacturer> manufacturers;
         private ObservableCollection<Act> acts;
         private ObservableCollection<MaintenanceCycle> maintenanceCycles;
+        private ObservableCollection<MaintenanceCycleModel> maintenanceCycleModels;
+        private MaintenanceCycleModel normalMaintenanceCycleModel;
+        private MaintenanceCycleModel reducedMaitenenanceCycleModel;
         private RelayCommand addAttachment;
         private RelayCommand addDeviceType;
         private RelayCommand addElementBase;
@@ -173,29 +176,42 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             }
         }
 
-        public MaintenanceCycle NormalMaintenanceCycle
+        public ObservableCollection<MaintenanceCycleModel> MaintenanceCycleModels
         {
             get
-            {                                
-                return relayDevice.NormalMaintenanceCycle;
+            {
+                return maintenanceCycleModels;
             }
             set
             {
-                relayDevice.NormalMaintenanceCycle = value;
-                OnProtpertyChange(nameof(NormalMaintenanceCycle));
+                maintenanceCycleModels = value;
+                OnProtpertyChange(nameof(MaintenanceCycleModels));
             }
         }
 
-        public MaintenanceCycle ReducedMaintenanceCycle
+        public MaintenanceCycleModel NormalMaintenanceCycleModel
         {
             get
-            {
-                return relayDevice.ReducedMaintenanceCycle;
+            {                                
+                return normalMaintenanceCycleModel;
             }
             set
             {
-                relayDevice.ReducedMaintenanceCycle = value;
-                OnProtpertyChange(nameof(ReducedMaintenanceCycle));
+                normalMaintenanceCycleModel = value;
+                OnProtpertyChange(nameof(NormalMaintenanceCycleModel));
+            }
+        }
+
+        public MaintenanceCycleModel ReducedMaintenanceCycleModel
+        {
+            get
+            {
+                return reducedMaitenenanceCycleModel;
+            }
+            set
+            {
+                reducedMaitenenanceCycleModel = value;
+                OnProtpertyChange(nameof(ReducedMaintenanceCycleModel));
             }
         }
 
@@ -391,8 +407,14 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
                     if (view.ShowDialog() == true)
                     {
                         serviceUnitOfWork.MaintenanceCycleModels.Create(maintenanceCycleModel);
-                        MaintenanceCycles = MaintenanceCycles = MaintenanceCycles = new ObservableCollection<MaintenanceCycle>(serviceUnitOfWork.MaintenanceCycles.GetAll().Where(x => x.MaintenanceYears.Where(y => (y.MaintenanceType.Name.Contains("В") ||
-                                                                                                                                                                                        y.MaintenanceType.Name.Contains("Н"))).Count() != 0));
+                        MaintenanceCycleModels = new ObservableCollection<MaintenanceCycleModel>(serviceUnitOfWork.MaintenanceCycleModels.GetAll().Where(x => x.MaintenanceTypes.
+                                                                                                                                                  Where(y => {
+                                                                                                                                                      if (y != null)
+                                                                                                                                                      {
+                                                                                                                                                          return y.Contains("В") || y.Contains("Н");
+                                                                                                                                                      }
+                                                                                                                                                      return false;
+                                                                                                                                                  }).Count() != 0));
                     }
                 }));
             }
@@ -408,6 +430,8 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
                     relayDevice.InputYear = int.Parse(InputYear);                    
                     relayDevice.MaintenancePeriod = int.Parse(MaintenancePeriod);
                     relayDevice.ExpiryYear = relayDevice.InputYear + relayDevice.MaintenancePeriod;
+                    relayDevice.NormalMaintenanceCycle = serviceUnitOfWork.MaintenanceCycles.Get(normalMaintenanceCycleModel.MaintenanceCycleId);
+                    relayDevice.ReducedMaintenanceCycle = serviceUnitOfWork.MaintenanceCycles.Get(reducedMaitenenanceCycleModel.MaintenanceCycleId);
                     if (actionType == ActionType.Update)
                     {
                         relayDevice.MaintainedEquipmentId = oldRelayDevice.MaintainedEquipmentId;
@@ -530,6 +554,8 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             {
                 InputYear = relayDevice.InputYear.ToString();
                 MaintenancePeriod = relayDevice.MaintenancePeriod.ToString();
+                NormalMaintenanceCycleModel = serviceUnitOfWork.MaintenanceCycleModels.Get(relayDevice.NormalMaintenanceCycle);
+                ReducedMaintenanceCycleModel = serviceUnitOfWork.MaintenanceCycleModels.Get(relayDevice.ReducedMaintenanceCycle);
             }
 
             Substations = serviceUnitOfWork.Substations.GetAll();       
@@ -537,8 +563,14 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             ElementBases = serviceUnitOfWork.ElementBases.GetAll();
             Manufacturers = serviceUnitOfWork.Manufacturers.GetAll();
             Acts = serviceUnitOfWork.Acts.GetAll();
-            MaintenanceCycles = MaintenanceCycles = new ObservableCollection<MaintenanceCycle>(serviceUnitOfWork.MaintenanceCycles.GetAll().Where(x => x.MaintenanceYears.Where(y => (y.MaintenanceType.Name.Contains("В") ||
-                                                                                                                                                                                      y.MaintenanceType.Name.Contains("Н"))).Count() != 0));
+            MaintenanceCycleModels = new ObservableCollection<MaintenanceCycleModel>(serviceUnitOfWork.MaintenanceCycleModels.GetAll().Where(x => x.MaintenanceTypes.
+                                                                                                                                                  Where(y => {
+                                                                                                                                                      if (y != null)
+                                                                                                                                                      {
+                                                                                                                                                          return y.Contains("В") || y.Contains("Н");                                                                                                                                                          
+                                                                                                                                                      }
+                                                                                                                                                      return false;
+                                                                                                                                                      }).Count() != 0));
         }
     }
 }

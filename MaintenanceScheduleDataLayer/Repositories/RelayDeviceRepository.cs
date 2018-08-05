@@ -3,6 +3,7 @@ using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,30 @@ namespace MaintenanceScheduleDataLayer.Repositories
         public RelayDevice Read(int id)
         {
             return context.RelayDevices.Include(x => x.MaintenanceRecords.Select(m => m.PlannedMaintenanceType))
-                                       .Include(x => x.CombineDevices.Select(m => m.MaintenanceRecords.Select(t => t.PlannedMaintenanceType)))
-                                       .First(x => x.MaintainedEquipmentId == id);
+                                           .Include(x => x.CombineDevices.Select(m => m.MaintenanceRecords.Select(t => t.PlannedMaintenanceType)))
+                                           .First(x => x.MaintainedEquipmentId == id);
+        }
+
+        public async Task<RelayDevice> ReadAsync(int id)
+        {            
+            return await Task.Run(() =>
+            {
+                using (MaintenanceScheduleContext dbContext = new MaintenanceScheduleContext("ProbLoc"))
+                {
+                    return dbContext.RelayDevices
+                                    .Include(x => x.Attachment.Substation)
+                                    .Include(x => x.Act)
+                                    .Include(x => x.Manufacturer)
+                                    .Include(x => x.ElementBase)
+                                    .Include(x => x.DeviceType)
+                                    .Include(x => x.NormalMaintenanceCycle)
+                                    .Include(x => x.NormalMaintenanceCycle.MaintenanceYears.Select(y => y.MaintenanceType))
+                                    .Include(x => x.ReducedMaintenanceCycle)                                    
+                                    .Include(x => x.MaintenanceRecords.Select(m => m.PlannedMaintenanceType))                                    
+                                    .Include(x => x.CombineDevices.Select(m => m.MaintenanceRecords.Select(t => t.PlannedMaintenanceType)))
+                                    .First(x => x.MaintainedEquipmentId == id);
+                }
+            }); 
         }
 
         public void Update(RelayDevice t)

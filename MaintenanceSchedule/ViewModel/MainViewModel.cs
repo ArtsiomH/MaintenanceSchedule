@@ -24,8 +24,16 @@ namespace MaintenanceSchedule.ViewModel
         private ContentControl contentControl = new ContentControl();
         private string connectionString = ConfigurationManager.ConnectionStrings["ProbLoc"].ConnectionString;
         public ObservableCollection<RelayDevice> Devices { get; set; }
-        
-        
+
+        private RelayCommand showSubstations;
+        private RelayCommand showAttachments;
+        private RelayCommand showDevices;
+        private RelayCommand showAdditionalDevices;
+        private RelayCommand showCombineDevices;
+        private RelayCommand showMaintenanceCycles;
+        private RelayCommand showScheduleForYear;
+        private RelayCommand showScheduleForMonth;
+
         public ContentControl ContentControl
         {
             get { return contentControl; }
@@ -35,13 +43,6 @@ namespace MaintenanceSchedule.ViewModel
                 OnProtpertyChange(nameof(ContentControl));
             }
         }
-
-        private RelayCommand showSubstations;
-        private RelayCommand showAttachments;
-        private RelayCommand showDevices;
-        private RelayCommand showAdditionalDevices;
-        private RelayCommand showCombineDevices;
-        private RelayCommand showMaintenanceCycles;
 
         public RelayCommand ShowSubstations
         {
@@ -118,6 +119,30 @@ namespace MaintenanceSchedule.ViewModel
                     MaintenanceCyclesView view = new MaintenanceCyclesView();
                     view.DataContext = new MaintenanceCyclesViewModel(serviceUnitOfWork);
                     ContentControl.Content = view;
+                }));
+            }
+        }
+
+        public RelayCommand ShowScheduleForYear
+        {
+            get
+            {
+                return showScheduleForYear ?? (showScheduleForYear = new RelayCommand(o =>
+                {
+                    SchedulesForYearView view = new SchedulesForYearView();
+                    view.DataContext = new ScheduleForYearViewModel(serviceUnitOfWork, contentControl);
+                    view.ShowDialog();
+                }));
+            }
+        }
+
+        public RelayCommand ShowScheduleForMonth
+        {
+            get
+            {
+                return showScheduleForMonth ?? (showScheduleForMonth = new RelayCommand(o =>
+                {
+
                 }));
             }
         }

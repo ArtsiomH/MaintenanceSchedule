@@ -40,8 +40,8 @@ namespace MaintenanceSchedule.Services
                 record = additionalDevice.MaintenanceRecords.Where(x => x.ActualMaintenanceDate == null).FirstOrDefault();
                 if (record != null)
                 {
-                    additionalDeviceModel.ActualMaintenanceDate = record.PlannedMaintenanceDate;
-                    additionalDeviceModel.ActualMaintenanceType = record.PlannedMaintenanceType;
+                    additionalDeviceModel.PlannedMaintenanceDate = record.PlannedMaintenanceDate;
+                    additionalDeviceModel.PlannedMaintenanceType = record.PlannedMaintenanceType;
                 }                
                 additionalDeviceModels.Add(additionalDeviceModel);
             }

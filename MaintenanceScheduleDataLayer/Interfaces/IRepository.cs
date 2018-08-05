@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Interfaces
 {
@@ -9,5 +10,6 @@ namespace MaintenanceScheduleDataLayer.Interfaces
         void Update(T t);
         void Delete(T t);
         IEnumerable<T> GetAll();
+        Task<T> ReadAsync(int id);        
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using MaintenanceScheduleDataLayer.Interfaces;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
+using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -48,6 +50,24 @@ namespace MaintenanceScheduleDataLayer.Repositories
                                             .Include(x => x.NormalMaintenanceCycle)
                                             .Include(x => x.ReducedMaintenanceCycle)
                                             .ToList();
+        }
+
+        public async Task<AdditionalDevice> ReadAsync(int id)
+        {
+            return await Task.Run(() =>
+            {
+                using (MaintenanceScheduleContext dbContext = new MaintenanceScheduleContext("ProbLoc"))
+                {
+                    return dbContext.AdditionalDevices
+                                    .Include(x => x.Attachment.Substation)
+                                    .Include(x => x.Act)
+                                    .Include(x => x.NormalMaintenanceCycle)
+                                    .Include(x => x.NormalMaintenanceCycle.MaintenanceYears.Select(y => y.MaintenanceType))
+                                    .Include(x => x.ReducedMaintenanceCycle)
+                                    .Include(x => x.MaintenanceRecords.Select(m => m.PlannedMaintenanceType))
+                                    .First(x => x.MaintainedEquipmentId == id);
+                }
+            });
         }
     }
 }

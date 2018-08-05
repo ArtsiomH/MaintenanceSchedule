@@ -13,7 +13,7 @@ using MaintenanceScheduleDataLayer.Repositories;
 
 namespace MaintenanceScheduleDataLayer.EFContext
 {
-    class MaintenanceScheduleInitializer : DropCreateDatabaseIfModelChanges<MaintenanceScheduleContext>
+    class MaintenanceScheduleInitializer : CreateDatabaseIfNotExists<MaintenanceScheduleContext>
     {
         protected override void Seed(MaintenanceScheduleContext context)
         {

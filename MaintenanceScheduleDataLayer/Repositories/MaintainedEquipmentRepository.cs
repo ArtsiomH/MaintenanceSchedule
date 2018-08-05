@@ -4,6 +4,8 @@ using MaintenanceScheduleDataLayer.Interfaces;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -42,7 +44,15 @@ namespace MaintenanceScheduleDataLayer.Repositories
 
         public IEnumerable<MaintainedEquipment> GetAll()
         {
-            return context.MaintainedEquipments.ToList();
+            return context.MaintainedEquipments
+                .Include(x => x.MaintenanceRecords.Select(t => t.PlannedMaintenanceType))
+                .Include(x => x.MaintenanceRecords.Select(t => t.ActualMaintenanceType))
+                .ToList();
+        }
+
+        public Task<MaintainedEquipment> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

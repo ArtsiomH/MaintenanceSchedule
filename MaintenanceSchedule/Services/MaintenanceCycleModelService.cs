@@ -42,15 +42,16 @@ namespace MaintenanceSchedule.Services
 
         public MaintenanceCycleModel Get(MaintenanceCycle maintenanceCycle)
         {
-            MaintenanceCycleModel maintenanceCycleModel = new MaintenanceCycleModel();
+            MaintenanceCycle cycle = dataBase.MaintenanceCycles.Read(maintenanceCycle.MaintenanceCycleId);
+            MaintenanceCycleModel maintenanceCycleModel = new MaintenanceCycleModel();            
             maintenanceCycleModel.MaintenanceTypes = new string[9];
-            maintenanceCycleModel.MaintenanceCycleId = maintenanceCycle.MaintenanceCycleId;
-            maintenanceCycleModel.Name = maintenanceCycle.Name;
-            maintenanceCycleModel.ShowName = maintenanceCycle.ShowName;
+            maintenanceCycleModel.MaintenanceCycleId = cycle.MaintenanceCycleId;
+            maintenanceCycleModel.Name = cycle.Name;
+            maintenanceCycleModel.ShowName = cycle.ShowName;
             MaintenanceYear maintenanceYear = new MaintenanceYear();
             for (int i = 0; i <= 8; i++)
             {
-                maintenanceYear = maintenanceCycle.MaintenanceYears.FirstOrDefault(x => x.Year == i);
+                maintenanceYear = cycle.MaintenanceYears.FirstOrDefault(x => x.Year == i);
                 if (maintenanceYear != null)
                 {
                     maintenanceCycleModel.MaintenanceTypes[i] = maintenanceYear.MaintenanceType.Name;

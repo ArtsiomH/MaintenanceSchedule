@@ -4,6 +4,8 @@ using System.Linq;
 using MaintenanceScheduleDataLayer.Interfaces;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
+using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -53,6 +55,27 @@ namespace MaintenanceScheduleDataLayer.Repositories
                 .Include(x => x.DistrictElectricalNetwork)
                 .Include(x => x.InspectionsFrequency)                
                 .ToList();
+        }
+
+        public async Task<Substation> ReadAsync(int id)
+        {
+            return await Task.Run(() =>
+            {
+                using (MaintenanceScheduleContext dbContext = new MaintenanceScheduleContext("ProbLoc"))
+                {
+                    return dbContext.Substations
+                                    .Include(x => x.Team)
+                                    .Include(x => x.TransformerType)
+                                    .Include(x => x.DistrictElectricalNetwork)
+                                    .Include(x => x.InspectionsFrequency)
+                                    .Include(x => x.Attachments.Select(m => m.ManagementOrganization))
+                                    .Include(x => x.Attachments.Select(m => m.VoltageClass))
+                                    .Include(x => x.MaintenanceRecords)
+                                    .Include(x => x.AdditionalWorks.Select(m => m.MaintenanceRecords
+                                                        .Select(t => t.PlannedMaintenanceType)))
+                                    .First(x => x.MaintainedEquipmentId == id);
+                }
+            });
         }
     }
 }

@@ -26,7 +26,7 @@ namespace MaintenanceScheduleDataLayer.Repositories
 
         public MaintainedEquipmentByCycle Read(int id)
         {
-            return context.MaintainedEquipmentsByCycle                
+            return context.MaintainedEquipmentsByCycle               
                 .First(x => x.MaintainedEquipmentId == id);
         }
 
@@ -49,5 +49,9 @@ namespace MaintenanceScheduleDataLayer.Repositories
                 .ToList();
         }
 
+        public Task<MaintainedEquipmentByCycle> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

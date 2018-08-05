@@ -33,8 +33,8 @@ namespace MaintenanceSchedule.Services
                 additionalWorkModel.LastMaintenanceDate = record.ActualMaintenanceDate.Value;
                 additionalWorkModel.LastMaintenanceType = record.ActualMaintenanceType;
                 record = combineDevice.MaintenanceRecords.Where(x => x.ActualMaintenanceDate == null).First();
-                additionalWorkModel.ActualMaintenanceDate = record.PlannedMaintenanceDate;
-                additionalWorkModel.ActualMaintenanceType = record.PlannedMaintenanceType;
+                additionalWorkModel.PlannedMaintenanceDate = record.PlannedMaintenanceDate;
+                additionalWorkModel.PlannedMaintenanceType = record.PlannedMaintenanceType;
                 additionalWorkModels.Add(additionalWorkModel);
             }
             return additionalWorkModels;
@@ -53,8 +53,8 @@ namespace MaintenanceSchedule.Services
                 additionalWorkModel.LastMaintenanceDate = record.ActualMaintenanceDate.Value;
                 additionalWorkModel.LastMaintenanceType = record.ActualMaintenanceType;
                 record = combineDevice.MaintenanceRecords.Where(x => x.ActualMaintenanceDate == null).First();
-                additionalWorkModel.ActualMaintenanceDate = record.PlannedMaintenanceDate;
-                additionalWorkModel.ActualMaintenanceType = record.PlannedMaintenanceType;
+                additionalWorkModel.PlannedMaintenanceDate = record.PlannedMaintenanceDate;
+                additionalWorkModel.PlannedMaintenanceType = record.PlannedMaintenanceType;
                 additionalWorkModels.Add(additionalWorkModel);
             }
             return additionalWorkModels;

@@ -19,6 +19,8 @@ namespace MaintenanceSchedule.Interfaces
         IBaseService<DistrictElectricalNetwork> DistrictElectricalNetworks { get; }
         IBaseService<ElementBase> ElementBases { get; }
         IBaseService<InspectionsFrequency> InspectionsFrequencies { get; }
+        IMaintainedEquipmentService MaintainedEquipments { get; }
+        IScheduleRecordModelService ScheduleRecordModels { get; }
         IMaintainedEquipmentByCycleService MaintainedEquipmentsByCycleService { get; }
         IMaintenanceCycleModelService MaintenanceCycleModels { get; }
         IMaintenanceCycleService MaintenanceCycles { get; }
@@ -33,5 +35,6 @@ namespace MaintenanceSchedule.Interfaces
         IBaseService<Team> Teams { get; }
         IBaseService<TransformerType> TransformerTypes { get; }
         IBaseService<VoltageClass> VoltageClasses { get; }
+        IScheduleService Schedules { get; }
     }
 }

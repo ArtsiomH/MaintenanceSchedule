@@ -103,7 +103,7 @@ namespace MaintenanceSchedule.Services
         /// Обновление графика устройства по циклу ТО
         /// </summary>
         /// <param name="maintenanceCycle">Новый цикл технического обслуживания</param>
-        /// <param name="device">Устройство для которого обновляется графи</param>
+        /// <param name="device">Устройство для которого обновляется график</param>
         protected void updateDeviceRecords(MaintenanceCycle maintenanceCycle, Device device)
         {
             List<MaintenanceRecord> deleteMaintenanceRecords = dataBase.Devices.Read(device.MaintainedEquipmentId).MaintenanceRecords.FindAll(x => x.ActualMaintenanceDate == null

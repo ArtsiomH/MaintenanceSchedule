@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using MaintenanceScheduleDataLayer.Interfaces;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
-
+using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -45,6 +46,11 @@ namespace MaintenanceScheduleDataLayer.Repositories
             return context.Acts.Include(x => x.AdditionalDevices)
                                .Include(x => x.Devices)
                                .ToList();
+        }
+
+        public Task<Act> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

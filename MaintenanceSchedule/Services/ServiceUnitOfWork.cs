@@ -24,6 +24,8 @@ namespace MaintenanceSchedule.Services
         private DistrictElectricalNetworkService districtElectricalNetworkService;
         private ElementBaseService elementBaseService;
         private InspectionsFrequencyService inspectionFrequencyService;
+        private MaintainedEquipmentService maintainedEquipmentService;
+        private ScheduleRecordModelService scheduleRecordModelService;
         private MaintainedEquipmentByCycleService maintainedEquipmentByCycleService;
         private MaintenanceCycleModelService maintenanceCycleModelService;
         private MaintenanceCycleService maintenanceCycleService;
@@ -38,6 +40,7 @@ namespace MaintenanceSchedule.Services
         private TeamService teamService;
         private TransformerTypeService TransformerTypeService;
         private VoltageClassService voltageClassService;
+        private ScheduleService scheduleService;
 
 
         public ServiceUnitOfWork(string name)
@@ -162,6 +165,30 @@ namespace MaintenanceSchedule.Services
                     inspectionFrequencyService = new InspectionsFrequencyService(unitOfWork);
                 }
                 return inspectionFrequencyService;
+            }
+        }
+
+        public IMaintainedEquipmentService MaintainedEquipments
+        {
+            get
+            {
+                if (maintainedEquipmentService == null)
+                {
+                    maintainedEquipmentService = new MaintainedEquipmentService(unitOfWork);
+                }
+                return maintainedEquipmentService;
+            }
+        }
+
+        public IScheduleRecordModelService ScheduleRecordModels
+        {
+            get
+            {
+                if (scheduleRecordModelService == null)
+                {
+                    scheduleRecordModelService = new ScheduleRecordModelService(unitOfWork);
+                }
+                return scheduleRecordModelService;
             }
         }
 
@@ -330,6 +357,18 @@ namespace MaintenanceSchedule.Services
                     voltageClassService = new VoltageClassService(unitOfWork);
                 }
                 return voltageClassService;
+            }
+        }
+
+        public IScheduleService Schedules
+        {
+            get
+            {
+                if (scheduleService == null)
+                {
+                    scheduleService = new ScheduleService(unitOfWork);
+                }
+                return scheduleService;
             }
         }
     }

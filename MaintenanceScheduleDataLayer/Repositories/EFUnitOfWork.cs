@@ -32,6 +32,7 @@ namespace MaintenanceScheduleDataLayer.Repositories
         private TeamRepository teamRepository;
         private TransformerTypeRepository TransformerTypeRepository;
         private VoltageClassRepository voltageClassRepository;
+        private ScheduleRepository scheduleRepository;
 
 
         public EFUnitOfWork(string name)
@@ -300,6 +301,18 @@ namespace MaintenanceScheduleDataLayer.Repositories
                     voltageClassRepository = new VoltageClassRepository(context);
                 }
                 return voltageClassRepository;
+            }
+        }
+
+        public IRepository<Schedule> Schedules
+        {
+            get
+            {
+                if (scheduleRepository == null)
+                {
+                    scheduleRepository = new ScheduleRepository(context);
+                }
+                return scheduleRepository;
             }
         }
 

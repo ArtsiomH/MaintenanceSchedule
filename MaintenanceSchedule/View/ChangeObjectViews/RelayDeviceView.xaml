@@ -178,10 +178,10 @@
                 <ColumnDefinition Width="90"/>
             </Grid.ColumnDefinitions>
             <Label Content="Выберите цикл ТО:" FontSize="15"/>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycles}"
-                              DisplayMemberPath="ShowName"
-                              SelectedItem="{Binding NormalMaintenanceCycle, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
-                              SelectedValue="{Binding  RelayDevice.NormalMaintenanceCycle.ShowName}"
+            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycleModels}"
+                              ItemTemplate="{StaticResource maintenanceCycleModel}"
+                              SelectedItem="{Binding NormalMaintenanceCycleModel, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
+                              SelectedValue="{Binding  NormalMaintenanceCycleModel.ShowName}"
                               SelectedValuePath="ShowName"/>
             <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
                     Command="{Binding AddMaintenanceCycle}"/>
@@ -197,10 +197,10 @@
                 <ColumnDefinition Width="90"/>
             </Grid.ColumnDefinitions>
             <Label Content="Выберите заниженный цикл ТО:" FontSize="15"/>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycles}"
-                              DisplayMemberPath="ShowName"
-                              SelectedItem="{Binding ReducedMaintenanceCycle, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
-                              SelectedValue="{Binding  RelayDevice.ReducedMaintenanceCycle.ShowName}"
+            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycleModels}"
+                              ItemTemplate="{StaticResource maintenanceCycleModel}"
+                              SelectedItem="{Binding ReducedMaintenanceCycleModel, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
+                              SelectedValue="{Binding  ReducedMaintenanceCycleModel.ShowName}"
                               SelectedValuePath="ShowName"/>
             <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
                     Command="{Binding AddMaintenanceCycle}"/>

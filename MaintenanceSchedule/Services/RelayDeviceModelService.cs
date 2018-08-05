@@ -56,8 +56,8 @@ namespace MaintenanceSchedule.Services
                 relayDeviceModel.LastMaintenanceDate = record.ActualMaintenanceDate.Value;
                 relayDeviceModel.LastMaintenanceType = record.ActualMaintenanceType;
                 record = relayDevice.MaintenanceRecords.Where(x => x.ActualMaintenanceDate == null).First();
-                relayDeviceModel.ActualMaintenanceDate = record.PlannedMaintenanceDate;
-                relayDeviceModel.ActualMaintenanceType = record.PlannedMaintenanceType;
+                relayDeviceModel.PlannedMaintenanceDate = record.PlannedMaintenanceDate;
+                relayDeviceModel.PlannedMaintenanceType = record.PlannedMaintenanceType;
                 relayDeviceModel.ElementBase = relayDevice.ElementBase;
                 deviceModels.Add(relayDeviceModel);
             }

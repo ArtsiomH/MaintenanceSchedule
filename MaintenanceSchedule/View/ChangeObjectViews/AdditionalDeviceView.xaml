@@ -121,59 +121,11 @@
                 <ColumnDefinition Width="90"/>
             </Grid.ColumnDefinitions>
             <Label Content="Выберите цикл ТО:" FontSize="15"/>
-            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycleModels}"
-                              
+            <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycleModels}" 
+                              ItemTemplate="{StaticResource maintenanceCycleModel}"                                                 
                               SelectedItem="{Binding NormalMaintenanceCycleModel, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
                               SelectedValue="{Binding  AdditionalDevice.NormalMaintenanceCycle.ShowName}"
-                              SelectedValuePath="ShowName">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <ListBoxItem Content="{Binding ShowName}">
-                            <ListBoxItem.ToolTip>                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Border BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[0]}"/>
-                                    </Border>
-                                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[1]}"/>
-                                    </Border>
-                                    <Border Grid.Column="2" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[2]}"/>
-                                    </Border>
-                                    <Border Grid.Column="3" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[3]}"/>
-                                    </Border>
-                                    <Border Grid.Column="4" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[4]}"/>
-                                    </Border>
-                                    <Border Grid.Column="5" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[5]}"/>
-                                    </Border>
-                                    <Border Grid.Column="6" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[6]}"/>
-                                    </Border>
-                                    <Border Grid.Column="7" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[7]}"/>
-                                    </Border>
-                                    <Border Grid.Column="8" BorderThickness="1" BorderBrush="Black">
-                                        <TextBlock Width="15" Text="{Binding MaintenanceTypes[8]}"/>
-                                    </Border>
-                                </Grid>
-                            </ListBoxItem.ToolTip>
-                        </ListBoxItem>
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
+                              SelectedValuePath="ShowName">                
             </ComboBox>
             <Button Content="Добавить" Grid.Column="1" Grid.Row="1" Margin="5,0"
                     Command="{Binding AddMaintenanceCycle}"/>
@@ -190,7 +142,7 @@
             </Grid.ColumnDefinitions>
             <Label Content="Выберите заниженный цикл ТО:" FontSize="15"/>
             <ComboBox Grid.Row="1" ItemsSource="{Binding MaintenanceCycleModels}"
-                              DisplayMemberPath="ShowName"
+                              ItemTemplate="{StaticResource maintenanceCycleModel}"
                               SelectedItem="{Binding ReducedMaintenanceCycleModel, Mode=TwoWay, ValidatesOnDataErrors=True}"                      
                               SelectedValue="{Binding  AdditionalDevice.ReducedMaintenanceCycle.ShowName}"
                               SelectedValuePath="ShowName"/>

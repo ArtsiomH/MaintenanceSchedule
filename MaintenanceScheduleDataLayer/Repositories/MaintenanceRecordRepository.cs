@@ -6,6 +6,7 @@ using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
 using System.Diagnostics;
 using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -63,6 +64,11 @@ namespace MaintenanceScheduleDataLayer.Repositories
                                              .Include(x => x.ActualMaintenanceType)
                                              .Include(x => x.MaintainedEquipment)
                                              .ToList();
+        }
+
+        public Task<MaintenanceRecord> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using MaintenanceScheduleDataLayer.Interfaces;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -43,6 +44,11 @@ namespace MaintenanceScheduleDataLayer.Repositories
         public IEnumerable<DistrictElectricalNetwork> GetAll()
         {
             return context.DistrictElectricalNetworks.ToList();
+        }
+
+        public Task<DistrictElectricalNetwork> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

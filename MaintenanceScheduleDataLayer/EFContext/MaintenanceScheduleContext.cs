@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
+using System.IO;
 using MaintenanceScheduleDataLayer.Entities;
-using System.Diagnostics;
+
 
 namespace MaintenanceScheduleDataLayer.EFContext
 {
     class MaintenanceScheduleContext : DbContext
     {
-        public MaintenanceScheduleContext(string name) : base(name)
-        {            
-            Database.SetInitializer(new MaintenanceScheduleInitializer()); 
-            Database.Initialize(false);
-        }
-
         public DbSet<Act> Acts { get; set; }
         public DbSet<AdditionalDevice> AdditionalDevices { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
@@ -35,5 +30,20 @@ namespace MaintenanceScheduleDataLayer.EFContext
         public DbSet<Team> Teams { get; set; }
         public DbSet<TransformerType> TransformerTypes { get; set; }
         public DbSet<VoltageClass> VoltageClasses { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+
+        public MaintenanceScheduleContext(string name) : base(name)
+        {
+            Database.SetInitializer(new MaintenanceScheduleInitializer());
+            Database.Initialize(false);
+        }
+
+        public MaintenanceScheduleContext() :base("name=ProbLoc")
+        {
+            string path = Directory.GetCurrentDirectory();
+            path += @"\MaintenanceSchedule\bin\Debug\";
+            AppDomain.CurrentDomain.SetData("DataDirectory", path);
+            Database.SetInitializer(new MaintenanceScheduleInitializer());
+        }
     }
 }

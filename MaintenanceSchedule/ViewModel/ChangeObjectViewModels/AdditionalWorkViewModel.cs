@@ -21,7 +21,8 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
         private AdditionalWork additionalWork;
         private AdditionalWork oldAdditionalWork;
         private ObservableCollection<Substation> substations;
-        private ObservableCollection<MaintenanceCycle> maintenanceCycles;
+        private ObservableCollection<MaintenanceCycleModel> maintenanceCycleModels;
+        private MaintenanceCycleModel normalMaintenanceCycleModel;
         private ObservableCollection<RelayDevice> relayDevices;
         private ObservableCollection<RelayDevice> addedRelayDevices;
         private RelayCommand addSubstation;
@@ -103,16 +104,16 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             }
         }
 
-        public MaintenanceCycle NormalMaintenanceCycle
+        public MaintenanceCycleModel NormalMaintenanceCycleModel
         {
             get
             {
-                return additionalWork.NormalMaintenanceCycle;
+                return normalMaintenanceCycleModel;
             }
             set
             {
-                additionalWork.NormalMaintenanceCycle = value;
-                OnProtpertyChange(nameof(NormalMaintenanceCycle));
+                normalMaintenanceCycleModel = value;
+                OnProtpertyChange(nameof(NormalMaintenanceCycleModel));
             }
         }
 
@@ -129,19 +130,19 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             }
         }
 
-        public ObservableCollection<MaintenanceCycle> MaintenanceCycles
+        public ObservableCollection<MaintenanceCycleModel> MaintenanceCycleModels
         {
             get
             {
-                return maintenanceCycles;
+                return maintenanceCycleModels;
             }
             set
             {
-                maintenanceCycles = value;
-                OnProtpertyChange(nameof(MaintenanceCycles));
+                maintenanceCycleModels = value;
+                OnProtpertyChange(nameof(MaintenanceCycleModels));
             }
         }
-        
+
         public ObservableCollection<RelayDevice> RelayDevices
         {
             get
@@ -199,7 +200,14 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
                     if (view.ShowDialog() == true)
                     {
                         serviceUnitOfWork.MaintenanceCycleModels.Create(maintenanceCycleModel);
-                        MaintenanceCycles = serviceUnitOfWork.MaintenanceCycles.GetAll();
+                        MaintenanceCycleModels = new ObservableCollection<MaintenanceCycleModel>(serviceUnitOfWork.MaintenanceCycleModels.GetAll().Where(x => x.MaintenanceTypes.
+                                                                                                                                                  Where(y => {
+                                                                                                                                                      if (y != null)
+                                                                                                                                                      {
+                                                                                                                                                          return !y.Contains("Н");
+                                                                                                                                                      }
+                                                                                                                                                      return false;
+                                                                                                                                                  }).Count() != 0));
                     }
                 }));
             }
@@ -228,7 +236,8 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
                     if (o == null) return;
                     RelayDevice device = o as RelayDevice;                                        
                     RelayDevices.Add(device);
-                    RelayDevices = new ObservableCollection<RelayDevice>(RelayDevices.OrderBy(x => x.Attachment.Name + x.Name));
+                    RelayDevices = new ObservableCollection<RelayDevice>(RelayDevices.
+                        OrderBy(x => x.Attachment.Name + x.Name));
                     AddedRelayDevices.Remove(device);                                        
                 }));
             }
@@ -321,26 +330,29 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             }
         }
 
-        public AdditionalWorkViewModel(IServiceUnitOfWork serviceUnitOfWork, AdditionalWork additionalWork, ActionType actionType)
+        public AdditionalWorkViewModel(IServiceUnitOfWork serviceUnitOfWork, AdditionalWork additionalWork,
+            ActionType actionType)
         {
             this.serviceUnitOfWork = serviceUnitOfWork;
             this.actionType = actionType;
 
             oldAdditionalWork = additionalWork;
 
-            AdditionalWork newadditionalWork = new AdditionalWork();
-            this.additionalWork = newadditionalWork;
-            newadditionalWork.Name = additionalWork.Name;
-            newadditionalWork.InputYear = additionalWork.InputYear;
-            newadditionalWork.NormalMaintenanceCycle = additionalWork.NormalMaintenanceCycle;
-            newadditionalWork.ReducedMaintenanceCycle = additionalWork.ReducedMaintenanceCycle;
-            newadditionalWork.Substation = additionalWork.Substation;
-            newadditionalWork.Devices = additionalWork.Devices; 
+            AdditionalWork newAdditionalWork = new AdditionalWork();
+            this.additionalWork = newAdditionalWork;
+            newAdditionalWork.Name = additionalWork.Name;
+            newAdditionalWork.InputYear = additionalWork.InputYear;
+            newAdditionalWork.NormalMaintenanceCycle = additionalWork.NormalMaintenanceCycle;
+            newAdditionalWork.ReducedMaintenanceCycle = additionalWork.ReducedMaintenanceCycle;
+            newAdditionalWork.Substation = additionalWork.Substation;
+            newAdditionalWork.Devices = additionalWork.Devices; 
 
             if (actionType == ActionType.Update)
             {
                 InputYear = additionalWork.InputYear.ToString();
-                additionalWork = newadditionalWork;             
+                additionalWork = newAdditionalWork;
+                NormalMaintenanceCycleModel = serviceUnitOfWork.MaintenanceCycleModels.
+                    Get(additionalWork.NormalMaintenanceCycle);             
             }
             else
             {
@@ -350,8 +362,16 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             
             Substations = serviceUnitOfWork.Substations.GetAll();
             Substation = additionalWork.Substation;
-            MaintenanceCycles = new ObservableCollection<MaintenanceCycle>(serviceUnitOfWork.MaintenanceCycles.GetAll().Where(x => x.MaintenanceYears.Where(y => (y.MaintenanceType.Name.Contains("В") || 
-                                                                                                                                                                  y.MaintenanceType.Name.Contains("Н"))).Count() == 0));
+            MaintenanceCycleModels = new ObservableCollection<MaintenanceCycleModel>(serviceUnitOfWork.
+                MaintenanceCycleModels.GetAll().Where(x => x.MaintenanceTypes.Where(y => 
+                {
+                    if (y != null)
+                    {
+                        return !y.Contains("Н");
+                    }
+                    return false;
+                }).Count() != 0));
+
         }
     }
 }

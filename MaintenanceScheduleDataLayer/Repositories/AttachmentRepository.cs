@@ -4,6 +4,8 @@ using System.Linq;
 using MaintenanceScheduleDataLayer.Interfaces;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
+using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -53,6 +55,11 @@ namespace MaintenanceScheduleDataLayer.Repositories
                 .Include(x => x.VoltageClass)
                 .Include(x => x.ManagementOrganization)                              
                 .ToList();
+        }
+
+        public Task<Attachment> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

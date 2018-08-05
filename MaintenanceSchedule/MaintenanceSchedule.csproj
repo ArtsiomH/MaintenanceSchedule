@@ -73,17 +73,22 @@
     <Compile Include="Interfaces\IAdditionalWorkModelService.cs" />
     <Compile Include="Interfaces\IDeviceService.cs" />
     <Compile Include="Interfaces\IMaintainedEquipmentByCycleService.cs" />
+    <Compile Include="Interfaces\IScheduleRecordModelService.cs" />
     <Compile Include="Interfaces\IRelayDeviceModelService.cs" />
     <Compile Include="Interfaces\IMaintenanceCycleModelService.cs" />
+    <Compile Include="Interfaces\IScheduleService.cs" />
     <Compile Include="Interfaces\IServiceUnitOfWork.cs" />
     <Compile Include="Model\MaintainedEquipmentModel.cs" />
+    <Compile Include="Model\ScheduleRecordModel.cs" />
     <Compile Include="Services\AdditionalDeviceModelService.cs" />
     <Compile Include="Services\BaseMaintenanceCycleService.cs" />
     <Compile Include="Services\AdditionalWorkModelService.cs" />
     <Compile Include="Services\BaseDeviceService.cs" />
     <Compile Include="Services\MaintainedEquipmentByCycleService.cs" />
+    <Compile Include="Services\ScheduleRecordModelService.cs" />
     <Compile Include="Services\RelayDeviceModelService.cs" />
     <Compile Include="Services\MaintenanceCycleModelService.cs" />
+    <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="Services\ServiceUnitOfWork.cs" />
     <Compile Include="ViewModel\AdditionalDevicesViewModel.cs" />
     <Compile Include="ViewModel\AttachmentsViewModel.cs" />
@@ -110,6 +115,8 @@
     <Compile Include="ViewModel\MarkRecordViewModel.cs" />
     <Compile Include="ViewModel\RelayDevicesViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceCyclesViewModel.cs" />
+    <Compile Include="ViewModel\ScheduleForYearViewModel.cs" />
+    <Compile Include="ViewModel\ScheduleViewModel.cs" />
     <Compile Include="View\AdditionalDevicesView.xaml.cs">
       <DependentUpon>AdditionalDevicesView.xaml</DependentUpon>
     </Compile>
@@ -184,6 +191,9 @@
     </Compile>
     <Compile Include="View\ChangeObjectViews\SelectingNewMaintenanceCycleView.xaml.cs">
       <DependentUpon>SelectingNewMaintenanceCycleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScheduleForYearView.xaml.cs">
+      <DependentUpon>ScheduleForYearView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SelectingDateView.xaml.cs">
       <DependentUpon>SelectingDateView.xaml</DependentUpon>
@@ -349,6 +359,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ChangeObjectViews\SelectingNewMaintenanceCycleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScheduleForYearView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

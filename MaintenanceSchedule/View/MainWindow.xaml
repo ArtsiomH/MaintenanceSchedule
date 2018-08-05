@@ -21,13 +21,15 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="1" Grid.RowSpan="7" BorderThickness="2" BorderBrush="Gray">
+        <Border Grid.Column="1" Grid.RowSpan="9" BorderThickness="2" BorderBrush="Gray">
             <ContentControl  Background="AliceBlue"  Content="{Binding ContentControl.Content}"/>
         </Border>        
         <Button Content="Подстанции" Command="{Binding ShowSubstations}" CommandParameter="{Binding ContentControl.Content}"/>
@@ -41,6 +43,24 @@
                     Циклы технического
                     <LineBreak/>
                     обслуживания
+                </TextBlock>
+            </Button.Content>
+        </Button>
+        <Button Grid.Row="6" Command="{Binding ShowScheduleForYear}" CommandParameter="{Binding ContentControl.Content}">
+            <Button.Content>
+                <TextBlock TextAlignment="Center">
+                    График технического
+                    <LineBreak/>
+                    обслуживания на год
+                </TextBlock>
+            </Button.Content>
+        </Button>
+        <Button Grid.Row="7" Command="{Binding ShowScheduleForMonth}" CommandParameter="{Binding ContentControl.Content}">
+            <Button.Content>
+                <TextBlock TextAlignment="Center">
+                    График технического
+                    <LineBreak/>
+                    обслуживания на месяц
                 </TextBlock>
             </Button.Content>
         </Button>

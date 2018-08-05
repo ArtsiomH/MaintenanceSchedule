@@ -27,6 +27,7 @@ namespace MaintenanceScheduleDataLayer.Interfaces
         IRepository<Team> Teams { get; }
         IRepository<TransformerType> TransformerTypes { get; }
         IRepository<VoltageClass> VoltageClasses { get; }
+        IRepository<Schedule> Schedules { get; }
         void Save();
     }
 }

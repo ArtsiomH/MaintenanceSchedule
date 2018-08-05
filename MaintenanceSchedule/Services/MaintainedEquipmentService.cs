@@ -36,7 +36,7 @@ namespace MaintenanceSchedule.Services
 
         public ObservableCollection<MaintainedEquipment> GetAll()
         {
-            throw new NotImplementedException();
+            return new ObservableCollection<MaintainedEquipment>(dataBase.MaintainedEquipments.GetAll());
         }
 
         public void Update(MaintainedEquipment t)

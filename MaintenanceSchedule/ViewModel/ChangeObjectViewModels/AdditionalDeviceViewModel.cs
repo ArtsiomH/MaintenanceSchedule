@@ -23,11 +23,10 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
         private Substation substation;
         private ObservableCollection<Substation> substations;
         private ObservableCollection<Attachment> attachments;
-        private ObservableCollection<Act> acts;
-        private ObservableCollection<MaintenanceCycle> maintenanceCycles;
+        private ObservableCollection<Act> acts;        
         private ObservableCollection<MaintenanceCycleModel> maintenanceCycleModels;
         private MaintenanceCycleModel normalMaintenanceCycleModel;
-        private MaintenanceCycleModel reducedMaitnenanceCycleModel;
+        private MaintenanceCycleModel reducedMaitenenanceCycleModel;
         private RelayCommand addAttachment;
         private RelayCommand addAct;
         private RelayCommand addMaintenanceCycle;
@@ -149,11 +148,11 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
         {
             get
             {
-                return reducedMaitnenanceCycleModel;
+                return reducedMaitenenanceCycleModel;
             }
             set
             {
-                reducedMaitnenanceCycleModel = value;
+                reducedMaitenenanceCycleModel = value;
                 OnProtpertyChange(nameof(ReducedMaintenanceCycleModel));
             }
         }
@@ -194,19 +193,6 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
             {
                 acts = value;
                 OnProtpertyChange(nameof(Acts));
-            }
-        }
-
-        public ObservableCollection<MaintenanceCycle> MaintenanceCycles
-        {
-            get
-            {
-                return maintenanceCycles;
-            }
-            set
-            {
-                maintenanceCycles = value;
-                OnProtpertyChange(nameof(MaintenanceCycles));
             }
         }
 
@@ -271,8 +257,14 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
                     if (view.ShowDialog() == true)
                     {
                         serviceUnitOfWork.MaintenanceCycleModels.Create(maintenanceCycleModel);
-                        MaintenanceCycles = MaintenanceCycles = MaintenanceCycles = new ObservableCollection<MaintenanceCycle>(serviceUnitOfWork.MaintenanceCycles.GetAll().Where(x => x.MaintenanceYears.Where(y => (y.MaintenanceType.Name.Contains("В") ||
-                                                                                                                                                                                                                      y.MaintenanceType.Name.Contains("Н"))).Count() != 0));
+                        MaintenanceCycleModels = new ObservableCollection<MaintenanceCycleModel>(serviceUnitOfWork.MaintenanceCycleModels.GetAll().Where(x => x.MaintenanceTypes.
+                                                                                                                                                  Where(y => {
+                                                                                                                                                      if (y != null)
+                                                                                                                                                      {
+                                                                                                                                                          return y.Contains("В") || y.Contains("Н");
+                                                                                                                                                      }
+                                                                                                                                                      return false;
+                                                                                                                                                  }).Count() != 0));
                     }
                 }));
             }
@@ -289,7 +281,7 @@ namespace MaintenanceSchedule.ViewModel.ChangeObjectViewModels
                     additionalDevice.MaintenancePeriod = int.Parse(MaintenancePeriod);
                     additionalDevice.ExpiryYear = additionalDevice.InputYear + additionalDevice.MaintenancePeriod;
                     additionalDevice.NormalMaintenanceCycle = serviceUnitOfWork.MaintenanceCycles.Get(normalMaintenanceCycleModel.MaintenanceCycleId);
-                    additionalDevice.ReducedMaintenanceCycle = serviceUnitOfWork.MaintenanceCycles.Get(reducedMaitnenanceCycleModel.MaintenanceCycleId);
+                    additionalDevice.ReducedMaintenanceCycle = serviceUnitOfWork.MaintenanceCycles.Get(reducedMaitenenanceCycleModel.MaintenanceCycleId);
                     if (actionType == ActionType.Update)
                     {
                         additionalDevice.MaintainedEquipmentId = oldAdditionalDevice.MaintainedEquipmentId;

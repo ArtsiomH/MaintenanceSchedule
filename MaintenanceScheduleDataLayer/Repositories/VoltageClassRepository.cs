@@ -4,6 +4,8 @@ using System.Linq;
 using MaintenanceScheduleDataLayer.Interfaces;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceScheduleDataLayer.EFContext;
+using System;
+using System.Threading.Tasks;
 
 namespace MaintenanceScheduleDataLayer.Repositories
 {
@@ -42,6 +44,11 @@ namespace MaintenanceScheduleDataLayer.Repositories
         public IEnumerable<VoltageClass> GetAll()
         {
             return context.VoltageClasses.Include(x => x.Attachments).ToList();
+        }
+
+        public Task<VoltageClass> ReadAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

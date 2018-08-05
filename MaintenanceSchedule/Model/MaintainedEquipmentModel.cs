@@ -15,7 +15,7 @@ namespace MaintenanceSchedule.Model
         public int? InputYear { get; set; }
         public DateTime LastMaintenanceDate { get; set; }
         public MaintenanceType LastMaintenanceType { get; set; }
-        public DateTime ActualMaintenanceDate { get; set; }
-        public MaintenanceType ActualMaintenanceType { get; set; }
+        public DateTime PlannedMaintenanceDate { get; set; }
+        public MaintenanceType PlannedMaintenanceType { get; set; }
     }
 }
