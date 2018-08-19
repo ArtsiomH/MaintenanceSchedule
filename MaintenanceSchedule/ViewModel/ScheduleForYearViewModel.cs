@@ -8,6 +8,8 @@ using MaintenanceSchedule.Interfaces;
 using System.Collections.ObjectModel;
 using MaintenanceScheduleDataLayer.Entities;
 using MaintenanceSchedule.Commands;
+using MaintenanceSchedule.ViewModel.ChangeObjectViewModels;
+using System.Windows;
 
 namespace MaintenanceSchedule.ViewModel
 {
@@ -59,7 +61,8 @@ namespace MaintenanceSchedule.ViewModel
                 return m_open ?? (m_open = new RelayCommand(o =>
                 {
                     ScheduleViewModel viewModel = new ScheduleViewModel(serviceUnitOfWork, m_contentControl, m_selectedSchedule);
-                }));
+					((Window)o).DialogResult = true;
+				}));
             }
         }
 
@@ -69,7 +72,7 @@ namespace MaintenanceSchedule.ViewModel
             {
                 return m_create ?? (m_create = new RelayCommand(o =>
                 {
-                    serviceUnitOfWork.Schedules.Create(new Schedule());
+					serviceUnitOfWork.Schedules.Create(new Schedule());
                     Schedules = serviceUnitOfWork.Schedules.GetAll(); 
                 }));
             }

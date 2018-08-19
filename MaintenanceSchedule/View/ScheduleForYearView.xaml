@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MaintenanceSchedule.View"
         mc:Ignorable="d"
-        Title="ScheduleForYear" Height="500" Width="600">
+        Title="ScheduleForYear" Height="500" Width="600" Name="window">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,7 +20,7 @@
             </DataGrid.Columns>            
         </DataGrid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Открыть" Grid.Row="1" Command="{Binding Open}" Margin="10" Width="100"/>
+            <Button Content="Открыть" Grid.Row="1" Command="{Binding Open}" CommandParameter="{Binding ElementName=window}" Margin="10" Width="100"/>
             <Button Grid.Row="1" Command="{Binding Create}" Margin="10" Width="110">
                 <Button.Content>
                     <TextBlock TextAlignment="Center">

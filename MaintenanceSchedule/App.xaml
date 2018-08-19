@@ -3,11 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MaintenanceSchedule"  
              xmlns:converter="clr-namespace:MaintenanceSchedule.Converters"
+			 xmlns:repositories="clr-namespace:MaintenanceSchedule.Repositories"
+			 xmlns:mscorlib="clr-namespace:System;assembly=System"
              StartupUri="View\MainWindow.xaml">
     <Application.Resources>
         <converter:RecordDateConverter  x:Key="recordDateConverter"/>
         <converter:InspectionDateConverter x:Key="inspectionDateConverter"/>
+		<converter:MonthConverter x:Key="monthConverter"/>
 
+		<ObjectDataProvider x:Key="months" ObjectType="{x:Type repositories:MonthRepository}" MethodName="GetAllMonths">
+			
+		</ObjectDataProvider>
+		
         <Style TargetType="TextBox">
             
             <Style.Triggers>

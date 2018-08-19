@@ -67,6 +67,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\InspectionDateConverter.cs" />
+    <Compile Include="Converters\MonthConverter.cs" />
     <Compile Include="Converters\RecordDateConverter.cs" />
     <Compile Include="Enums\ActionType.cs" />
     <Compile Include="Interfaces\IAdditionalDeviceModelService.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Interfaces\IServiceUnitOfWork.cs" />
     <Compile Include="Model\MaintainedEquipmentModel.cs" />
     <Compile Include="Model\ScheduleRecordModel.cs" />
+    <Compile Include="Repositories\MonthRepository.cs" />
     <Compile Include="Services\AdditionalDeviceModelService.cs" />
     <Compile Include="Services\BaseMaintenanceCycleService.cs" />
     <Compile Include="Services\AdditionalWorkModelService.cs" />
@@ -116,7 +118,7 @@
     <Compile Include="ViewModel\RelayDevicesViewModel.cs" />
     <Compile Include="ViewModel\MaintenanceCyclesViewModel.cs" />
     <Compile Include="ViewModel\ScheduleForYearViewModel.cs" />
-    <Compile Include="ViewModel\ScheduleViewModel.cs" />
+    <Compile Include="ViewModel\ChangeObjectViewModels\ScheduleViewModel.cs" />
     <Compile Include="View\AdditionalDevicesView.xaml.cs">
       <DependentUpon>AdditionalDevicesView.xaml</DependentUpon>
     </Compile>
@@ -161,6 +163,9 @@
     </Compile>
     <Compile Include="View\ChangeObjectViews\RelayDeviceView.xaml.cs">
       <DependentUpon>RelayDeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChangeObjectViews\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ChangeObjectViews\SubstationView.xaml.cs">
       <DependentUpon>SubstationView.xaml</DependentUpon>
@@ -258,6 +263,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ChangeObjectViews\RelayDeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChangeObjectViews\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

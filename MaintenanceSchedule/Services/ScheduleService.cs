@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MaintenanceScheduleDataLayer.Entities;
 using System.Collections.ObjectModel;
 using MaintenanceScheduleDataLayer.Interfaces;
+using MaintenanceSchedule.Model;
 
 namespace MaintenanceSchedule.Services
 {

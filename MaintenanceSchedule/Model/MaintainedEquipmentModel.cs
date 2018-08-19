@@ -13,7 +13,7 @@ namespace MaintenanceSchedule.Model
         public string Name { get; set; }
         public int MaintainedEquipmentId { get; set; }
         public int? InputYear { get; set; }
-        public DateTime LastMaintenanceDate { get; set; }
+        public DateTime? LastMaintenanceDate { get; set; }
         public MaintenanceType LastMaintenanceType { get; set; }
         public DateTime PlannedMaintenanceDate { get; set; }
         public MaintenanceType PlannedMaintenanceType { get; set; }
