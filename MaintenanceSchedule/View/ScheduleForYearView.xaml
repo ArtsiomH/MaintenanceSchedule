@@ -31,6 +31,7 @@
                 </Button.Content>
             </Button>
             <Button Content="Удалить" Grid.Row="1" Command="{Binding Delete}" Margin="10" Width="100"/>
+			<Button Content="Подписать" Grid.Row="1" Command="{Binding Sign}" Margin="10" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -22,11 +22,12 @@ namespace MaintenanceSchedule.ViewModel
         private ObservableCollection<RelayDeviceModel> relaydeviceModels;
 
         private AdditionalWork selectedAdditionalWork;
-        private RelayCommand add;
+		private MaintenanceRecord sougthMaintenanceRecord;
+		private RelayCommand add;
         private RelayCommand change;
         private RelayCommand delete;
         private RelayCommand mark;
-        private bool canMark = false;
+		private RelayCommand reschedule;
 
         public ObservableCollection<AdditionalWork> AdditionalWorks
         {
@@ -79,9 +80,7 @@ namespace MaintenanceSchedule.ViewModel
                 selectedAdditionalWork = serviceUnitOfWork.AdditionalWorks.Get(value.MaintainedEquipmentId); 
                 MaintenanceRecords = new ObservableCollection<MaintenanceRecord>(selectedAdditionalWork.MaintenanceRecords);                
                 RelayDeviceModels = serviceUnitOfWork.RelayDeviceModels.GetAll(SelectedAdditionalWork);
-                MaintenanceRecord record = selectedAdditionalWork.MaintenanceRecords.FirstOrDefault(x => x.ActualMaintenanceDate == null && x.IsPlanned == true && x.IsRescheduled == false);
-                if (record != null) canMark = true;
-                else canMark = false;
+				sougthMaintenanceRecord = selectedAdditionalWork.MaintenanceRecords.FirstOrDefault(x => x.ActualMaintenanceDate == null && x.IsPlanned == true && x.IsRescheduled == false);
                 OnProtpertyChange(nameof(SelectedAdditionalWork));
             }
         }
@@ -149,11 +148,25 @@ namespace MaintenanceSchedule.ViewModel
                         SelectedAdditionalWork = SelectedAdditionalWork;
                     }
                 },
-                o => canMark));
+                o => sougthMaintenanceRecord != null));
             }
         }
 
-        public AdditionalWorksViewModel(IServiceUnitOfWork serviceUnitOfWork)
+		public RelayCommand Reschsedule
+		{
+			get
+			{
+				return reschedule ?? (reschedule = new RelayCommand(o =>
+				{
+					if (SelectedAdditionalWork == null) return;
+					serviceUnitOfWork.AdditionalWorks.RescheduleRecord(SelectedAdditionalWork, sougthMaintenanceRecord);
+					SelectedAdditionalWork = serviceUnitOfWork.AdditionalWorks.Get(selectedAdditionalWork.MaintainedEquipmentId);
+				},
+				o => sougthMaintenanceRecord != null));
+			}
+		}
+
+		public AdditionalWorksViewModel(IServiceUnitOfWork serviceUnitOfWork)
         {
             this.serviceUnitOfWork = serviceUnitOfWork;
             additionalWorks = serviceUnitOfWork.AdditionalWorks.GetAll();
