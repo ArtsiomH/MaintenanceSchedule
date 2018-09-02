@@ -10,6 +10,5 @@ namespace MaintenanceSchedule.Interfaces
 {
     interface IRelayDeviceService : IBaseService<RelayDevice>
     {
-		void RescheduleRecord(RelayDevice relayDevice, MaintenanceRecord record);
-	}
+    }
 }

@@ -11,5 +11,5 @@ namespace MaintenanceSchedule.Interfaces
     {
         void MarkActualRecord(MaintainedEquipmentByCycle equpment, DateTime date, MaintenanceType type);
         MaintenanceCycle GetCurrentCycle(MaintainedEquipmentByCycle equpment);
-	}
+    }
 }

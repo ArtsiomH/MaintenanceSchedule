@@ -59,9 +59,8 @@ namespace MaintenanceScheduleDataLayer.Repositories
                 using (MaintenanceScheduleContext dbContext = new MaintenanceScheduleContext("ProbLoc"))
                 {
                     return dbContext.AdditionalDevices
-                                    .Include(x => x.Attachment.Substation.Team)
-									.Include(x => x.Attachment.ManagementOrganization)
-									.Include(x => x.Act)
+                                    .Include(x => x.Attachment.Substation)
+                                    .Include(x => x.Act)
                                     .Include(x => x.NormalMaintenanceCycle)
                                     .Include(x => x.NormalMaintenanceCycle.MaintenanceYears.Select(y => y.MaintenanceType))
                                     .Include(x => x.ReducedMaintenanceCycle)

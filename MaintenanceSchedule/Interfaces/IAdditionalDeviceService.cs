@@ -10,6 +10,5 @@ namespace MaintenanceSchedule.Interfaces
 {
     interface IAdditionalDeviceService : IBaseService<AdditionalDevice>
     {
-		void RescheduleRecord(AdditionalDevice additionalDevice, MaintenanceRecord record);
-	}
+    }
 }

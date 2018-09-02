@@ -21,12 +21,11 @@ namespace MaintenanceSchedule.ViewModel
         private ObservableCollection<MaintenanceRecord> maintenanceRecords;
 
         private AdditionalDevice selectedAdditionalDevice;
-		private MaintenanceRecord sougthMaintenanceRecord;
-		private RelayCommand add;
+        private RelayCommand add;
         private RelayCommand change;
         private RelayCommand delete;
         private RelayCommand mark;
-		private RelayCommand reschedule;
+        private bool canMark = false;
 
         public ObservableCollection<AdditionalDevice> AdditionalDevices
         {
@@ -66,7 +65,9 @@ namespace MaintenanceSchedule.ViewModel
                 selectedAdditionalDevice = value;
                 AdditionalDevice additionalDevice = serviceUnitOfWork.AdditionalDevices.Get(value.MaintainedEquipmentId);
                 MaintenanceRecords = new ObservableCollection<MaintenanceRecord>(additionalDevice.MaintenanceRecords);
-                sougthMaintenanceRecord = selectedAdditionalDevice.MaintenanceRecords.FirstOrDefault(x => x.ActualMaintenanceDate == null && x.IsPlanned == true && x.IsRescheduled == false);               
+                MaintenanceRecord record = selectedAdditionalDevice.MaintenanceRecords.FirstOrDefault(x => x.ActualMaintenanceDate == null && x.IsPlanned == true && x.IsRescheduled == false);
+                if (record != null) canMark = true;
+                else canMark = false;
                 OnProtpertyChange(nameof(SelectedAdditionalDevice));
             }
         }
@@ -132,25 +133,11 @@ namespace MaintenanceSchedule.ViewModel
                         SelectedAdditionalDevice = SelectedAdditionalDevice;
                     }
                 },
-                o => sougthMaintenanceRecord != null));
+                o => canMark));
             }
         }
 
-		public RelayCommand Reschsedule
-		{
-			get
-			{
-				return reschedule ?? (reschedule = new RelayCommand(o =>
-				{
-					if (SelectedAdditionalDevice == null) return;
-					serviceUnitOfWork.AdditionalDevices.RescheduleRecord(SelectedAdditionalDevice, sougthMaintenanceRecord);
-					SelectedAdditionalDevice = serviceUnitOfWork.AdditionalDevices.Get(selectedAdditionalDevice.MaintainedEquipmentId);
-				},
-				o => sougthMaintenanceRecord != null));
-			}
-		}
-
-		public AdditionalDevicesViewModel(IServiceUnitOfWork serviceUnitOfWork)
+        public AdditionalDevicesViewModel(IServiceUnitOfWork serviceUnitOfWork)
         {
             this.serviceUnitOfWork = serviceUnitOfWork;            
             AdditionalDevices = serviceUnitOfWork.AdditionalDevices.GetAll();

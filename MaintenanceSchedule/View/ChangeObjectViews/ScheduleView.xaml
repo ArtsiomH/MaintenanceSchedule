@@ -8,32 +8,13 @@
 			 xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
 			 xmlns:ff="clr-namespace:MaintenanceSchedule.Enums"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="1000">
+             d:DesignHeight="300" d:DesignWidth="800">
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="50"/>
-			<RowDefinition Height="*"/>
+			<RowDefinition/>
+			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-			<ComboBox Width="130" Margin="10" 
-					  ItemsSource="{Binding ManagementOrganizations}" 
-					  SelectedItem="{Binding SelectedManagementOrganization, Mode=TwoWay}"/>
-			<ComboBox Width="130" Margin="10" 
-					  ItemsSource="{Binding Teams}"
-					  SelectedItem="{Binding SelectedTeam, Mode=TwoWay}"/>
-			<ComboBox Width="130" Margin="10" 
-					  ItemsSource="{Binding Substations}"
-					  SelectedItem="{Binding SelectedSubstation, Mode=TwoWay}"/>
-			<ComboBox Width="130" Margin="10" 
-					  ItemsSource="{Binding Attachments}"
-					  SelectedItem="{Binding SelectedAttachment, Mode=TwoWay}"/>
-			<ComboBox Width="130" Margin="10" 
-					  ItemsSource="{Binding ElementBases}"
-					  SelectedItem="{Binding SelectedElementBase, Mode=TwoWay}"/>
-			<Button Width="130" Margin="10"  Content="Получить список" Command="{Binding GetCollection}"/>
-		</StackPanel>
-		<DataGrid Grid.Row="1"
-				  ItemsSource="{Binding ScheduleRecordModels}"
+		<DataGrid ItemsSource="{Binding ScheduleRecordModels}"
 				  SelectedItem="{Binding SelectedScheduleRecordModel}"
 				  ColumnWidth="*"
 				  TextBlock.TextAlignment="Center"

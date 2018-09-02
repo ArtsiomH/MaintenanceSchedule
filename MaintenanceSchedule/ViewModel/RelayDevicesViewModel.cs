@@ -22,13 +22,11 @@ namespace MaintenanceSchedule.ViewModel
         private ObservableCollection<AdditionalWorkModel> additionalDeviceModels;
         
         private RelayDevice selectedRelayDevice;
-		private MaintenanceRecord sougthMaintenanceRecord;
         private RelayCommand add;
         private RelayCommand change;
         private RelayCommand delete;
         private RelayCommand mark;
-		private RelayCommand reschedule;
-		private bool canMark = false;
+        private bool canMark = false;
 
         public ObservableCollection<RelayDevice> RelayDevices
         {
@@ -82,7 +80,9 @@ namespace MaintenanceSchedule.ViewModel
                 RelayDevice relayDevice = serviceUnitOfWork.RelayDevices.Get(SelectedRelayDevice.MaintainedEquipmentId);
                 MaintenanceRecords = new ObservableCollection<MaintenanceRecord>(relayDevice.MaintenanceRecords);
                 AdditionalDeviceModels = serviceUnitOfWork.AdditionalWorkModels.GetAll(selectedRelayDevice);
-                sougthMaintenanceRecord = selectedRelayDevice.MaintenanceRecords.FirstOrDefault(x => x.ActualMaintenanceDate == null && x.IsPlanned == true && x.IsRescheduled == false);                
+                MaintenanceRecord record = selectedRelayDevice.MaintenanceRecords.FirstOrDefault(x => x.ActualMaintenanceDate == null && x.IsPlanned == true && x.IsRescheduled == false);
+                if (record != null) canMark = true;
+                else canMark = false;
                 OnProtpertyChange(nameof(SelectedRelayDevice));
             }
         }
@@ -151,25 +151,11 @@ namespace MaintenanceSchedule.ViewModel
                         SelectedRelayDevice = SelectedRelayDevice;
                     }
                 },
-                o => sougthMaintenanceRecord != null));
+                o => canMark));
             }
         }
 
-		public RelayCommand Reschsedule
-		{
-			get
-			{
-				return reschedule ?? (reschedule = new RelayCommand(o =>
-				{
-					if (SelectedRelayDevice == null) return;
-					serviceUnitOfWork.RelayDevices.RescheduleRecord(SelectedRelayDevice, sougthMaintenanceRecord);
-					SelectedRelayDevice = serviceUnitOfWork.RelayDevices.Get(selectedRelayDevice.MaintainedEquipmentId);
-				},
-				o => sougthMaintenanceRecord != null));
-			}
-		}
-
-		public RelayDevicesViewModel(IServiceUnitOfWork serviceUnitOfWork)
+        public RelayDevicesViewModel(IServiceUnitOfWork serviceUnitOfWork)
         {
             this.serviceUnitOfWork = serviceUnitOfWork;
             RelayDevices = serviceUnitOfWork.RelayDevices.GetAll();

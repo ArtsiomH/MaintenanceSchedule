@@ -121,30 +121,7 @@ namespace MaintenanceSchedule.Services
             }
         }
 
-		public void RescheduleRecord(AdditionalWork additionalWork, MaintenanceRecord record)
-		{
-			record.IsRescheduled = true;
-			MaintenanceRecord addedRecord = new MaintenanceRecord();
-			MaintenanceRecord nextRecord = additionalWork.MaintenanceRecords.OrderBy(x => x.PlannedMaintenanceDate)
-				.FirstOrDefault(x => x.PlannedMaintenanceDate > record.PlannedMaintenanceDate);
-
-			if (nextRecord != null && nextRecord.PlannedMaintenanceDate.Year != record.PlannedMaintenanceDate.Year + 1)
-			{
-				addedRecord.PlannedMaintenanceDate = record.PlannedMaintenanceDate.AddYears(1);
-				addedRecord.MaintainedEquipment = additionalWork;
-				addedRecord.PlannedMaintenanceType = record.PlannedMaintenanceType;
-				dataBase.MaintenanceRecords.Create(addedRecord);
-			}
-			else if (record.PlannedMaintenanceType.Name.Contains("К") && !nextRecord.PlannedMaintenanceType.Name.Contains("К"))
-			{
-				nextRecord.PlannedMaintenanceType = GetCurrentCycle(additionalWork).MaintenanceYears.First(x => x.MaintenanceType.Name.Contains("К")).MaintenanceType;
-				dataBase.MaintenanceRecords.Update(nextRecord);
-			}
-			else return;
-			dataBase.Save();
-		}
-
-		public ObservableCollection<AdditionalWork> Find(Func<AdditionalWork, bool> predicate)
+        public ObservableCollection<AdditionalWork> Find(Func<AdditionalWork, bool> predicate)
         {
             return new ObservableCollection<AdditionalWork>(dataBase.AdditionalWorks.GetAll().Where(predicate));
         }

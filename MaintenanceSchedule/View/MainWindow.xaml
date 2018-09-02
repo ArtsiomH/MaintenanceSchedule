@@ -32,44 +32,30 @@
         <Border Grid.Column="1" Grid.RowSpan="9" BorderThickness="2" BorderBrush="Gray">
             <ContentControl  Background="AliceBlue"  Content="{Binding ContentControl.Content}"/>
         </Border>
-		<Border BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton Content="Подстанции" FontSize="14" ClickMode="Press" Command="{Binding ShowSubstations}" CommandParameter="{Binding ContentControl.Content}"/>
-		</Border>
-		<Border  Grid.Row="1" BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton Content="Присоединения" FontSize="14" BorderBrush="Black" Grid.Row="1" Command="{Binding ShowAttachments}" CommandParameter="{Binding ContentControl.Content}"/>
-		</Border>
-		<Border  Grid.Row="2" BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton Content="Релейные устройства" FontSize="14" Command="{Binding ShowDevices}" CommandParameter="{Binding ElementName=window}"/>
-		</Border>
-		<Border  Grid.Row="3" BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton Content="Дополнительные устройства" FontSize="14" Command="{Binding ShowAdditionalDevices}" CommandParameter="{Binding ContentControl.Content}"/>
-		</Border>
-		<Border  Grid.Row="4" BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton Content="Дополнительные работы" FontSize="14" Grid.Row="4" Command="{Binding ShowCombineDevices}" CommandParameter="{Binding ContentControl.Content}"/>
-		</Border>
-		<Border  Grid.Row="5" BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton Grid.Row="5" FontSize="14" Command="{Binding ShowMaintenanceCycles}" CommandParameter="{Binding ContentControl.Content}">
-				<Button.Content>
-					<TextBlock TextAlignment="Center">
+		<CalendarButton Content="Подстанции" FontSize="14" ClickMode="Press" Command="{Binding ShowSubstations}" CommandParameter="{Binding ContentControl.Content}"/>
+		<CalendarButton Content="Присоединения" FontSize="14" BorderBrush="Black" Grid.Row="1" Command="{Binding ShowAttachments}" CommandParameter="{Binding ContentControl.Content}"/>
+		<CalendarButton Content="Релейные устройства" Grid.Row="2" Command="{Binding ShowDevices}" CommandParameter="{Binding ElementName=window}"/>
+		<CalendarButton Content="Дополнительные устройства" Grid.Row="3" Command="{Binding ShowAdditionalDevices}" CommandParameter="{Binding ContentControl.Content}"/>
+		<CalendarButton Content="Дополнительные работы" Grid.Row="4" Command="{Binding ShowCombineDevices}" CommandParameter="{Binding ContentControl.Content}"/>
+		<CalendarButton Grid.Row="5" Command="{Binding ShowMaintenanceCycles}" CommandParameter="{Binding ContentControl.Content}">
+            <Button.Content>
+                <TextBlock TextAlignment="Center">
                     Циклы технического
                     <LineBreak/>
                     обслуживания
-					</TextBlock>
-				</Button.Content>
-			</CalendarButton>
-		</Border>
-		<Border  Grid.Row="6" BorderThickness="0.5" BorderBrush="Gray">
-			<CalendarButton FontSize="14" Command="{Binding ShowScheduleForYear}" CommandParameter="{Binding ContentControl.Content}">
-				<Button.Content>
-					<TextBlock TextAlignment="Center">
+                </TextBlock>
+            </Button.Content>
+        </CalendarButton>
+		<CalendarButton Grid.Row="6" Command="{Binding ShowScheduleForYear}" CommandParameter="{Binding ContentControl.Content}">
+            <Button.Content>
+                <TextBlock TextAlignment="Center">
                     График технического
                     <LineBreak/>
                     обслуживания на год
-					</TextBlock>
-				</Button.Content>
-			</CalendarButton>
-		</Border>
-		<!--<CalendarButton FontSize="14" Grid.Row="7" Command="{Binding ShowScheduleForMonth}" CommandParameter="{Binding ContentControl.Content}">
+                </TextBlock>
+            </Button.Content>
+        </CalendarButton>
+		<CalendarButton Grid.Row="7" Command="{Binding ShowScheduleForMonth}" CommandParameter="{Binding ContentControl.Content}">
             <Button.Content>
                 <TextBlock TextAlignment="Center">
                     График технического
@@ -77,6 +63,6 @@
                     обслуживания на месяц
                 </TextBlock>
             </Button.Content>
-        </CalendarButton>-->
+        </CalendarButton>
     </Grid>
 </Window>

@@ -46,7 +46,7 @@ namespace MaintenanceScheduleDataLayer.Repositories
 
         public IEnumerable<AdditionalWork> GetAll()
         {
-            return context.AdditionalWorks.Include(x => x.Substation.Team)                        
+            return context.AdditionalWorks.Include(x => x.Substation)                        
                                          .Include(x => x.NormalMaintenanceCycle)
                                          .Include(x => x.ReducedMaintenanceCycle)                                         
                                          .ToList();
@@ -57,9 +57,9 @@ namespace MaintenanceScheduleDataLayer.Repositories
             return await Task.Run(() =>
             {
                 using (MaintenanceScheduleContext dbContext = new MaintenanceScheduleContext("ProbLoc"))
-                {					
+                {
                     return dbContext.AdditionalWorks
-                                    .Include(x => x.Substation.Team)
+                                    .Include(x => x.Substation)
                                     .Include(x => x.MaintenanceRecords.Select(t => t.PlannedMaintenanceType))
                                     .Include(x => x.Devices.Select(m => m.MaintenanceRecords.Select(t => t.PlannedMaintenanceType)))
                                     .Include(x => x.NormalMaintenanceCycle)
