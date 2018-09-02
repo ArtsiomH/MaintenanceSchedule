@@ -9,5 +9,6 @@ namespace MaintenanceSchedule.Interfaces
 {
     interface IScheduleService : IBaseService<Schedule>
     {
+		void Sign(Schedule t);
     }
 }

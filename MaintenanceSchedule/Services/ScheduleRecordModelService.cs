@@ -79,7 +79,9 @@ namespace MaintenanceSchedule.Services
                     scheduleRecord.Attachment = null;
                     scheduleRecord.Name = work.Name;
                     scheduleRecord.MaintenanceTypes = GetMaintenanceTypes(work, serviceUnitOfWork);
-                }
+					scheduleRecord.Team = work.Substation.Team.Name;
+					scheduleRecord.ManagementOrganization = "ОДС";
+				}
                 else if (maintainedEquipment is AdditionalDevice)
                 {
                     AdditionalDevice additionalDevice = dataBase.AdditionalDevices
@@ -89,7 +91,9 @@ namespace MaintenanceSchedule.Services
                     scheduleRecord.Attachment = additionalDevice.Attachment.Name;
                     scheduleRecord.Name = additionalDevice.Name;
                     scheduleRecord.MaintenanceTypes = GetMaintenanceTypes(additionalDevice, serviceUnitOfWork);
-                }
+					scheduleRecord.Team = additionalDevice.Attachment.Substation.Team.Name;
+					scheduleRecord.ManagementOrganization = additionalDevice.Attachment.ManagementOrganization.Name;
+				}
                 else if (maintainedEquipment is RelayDevice)
                 {
                     RelayDevice relayDevice = dataBase.RelayDevices
@@ -99,7 +103,10 @@ namespace MaintenanceSchedule.Services
                     scheduleRecord.Attachment = relayDevice.Attachment.Name;
                     scheduleRecord.Name = relayDevice.Name;
                     scheduleRecord.MaintenanceTypes = GetMaintenanceTypes(relayDevice, serviceUnitOfWork);
-                }
+					scheduleRecord.ElementBase = relayDevice.ElementBase.Name;
+					scheduleRecord.Team = relayDevice.Attachment.Substation.Team.Name;
+					scheduleRecord.ManagementOrganization = relayDevice.Attachment.ManagementOrganization.Name;
+				}
                 MaintenanceRecord lastMaintenanceRecord = maintainedEquipment.MaintenanceRecords
                     .LastOrDefault(x => x.ActualMaintenanceDate != null && x.ActualMaintenanceDate.Value.Year != year);
 
@@ -149,7 +156,7 @@ namespace MaintenanceSchedule.Services
 			{
 				if (maintainedEquipment is Substation)
 				{					
-						ScheduleRecordModel scheduleRecord = new ScheduleRecordModel();
+					ScheduleRecordModel scheduleRecord = new ScheduleRecordModel();
 					scheduleRecord.MaintenanceTypes = new List<string>();
 
 					Substation substation = dataBase.Substations
@@ -158,7 +165,9 @@ namespace MaintenanceSchedule.Services
 					scheduleRecord.Substation = substation.Name;
 					scheduleRecord.Attachment = s_allAttachments;
 					scheduleRecord.Name = s_allEquipments;
-					scheduleRecord.MaintenanceTypes.Add("осмотр");					
+					scheduleRecord.MaintenanceTypes.Add("осмотр");
+					scheduleRecord.Team = substation.Team.Name;
+					scheduleRecord.ManagementOrganization = "ОДС";
 
 					List<MaintenanceRecord> previousYearRecords = maintainedEquipment.MaintenanceRecords.Where(x => x.PlannedMaintenanceDate.Year == year - 1).ToList();
 
@@ -231,20 +240,27 @@ namespace MaintenanceSchedule.Services
                 scheduleRecord.Substation = substation.Name;
                 scheduleRecord.Attachment = s_allAttachments;
                 scheduleRecord.Name = s_allEquipments;
+				scheduleRecord.Team = substation.Team.Name;
+				scheduleRecord.ManagementOrganization = "ОДС";
+				Substation s = new Substation();				
             }
             else if (maintainedEquipment is AdditionalWork)
             {
                 AdditionalWork work = dataBase.AdditionalWorks.Read(maintainedEquipment.MaintainedEquipmentId);
                 scheduleRecord.Substation = work.Substation.Name;
-                scheduleRecord.Attachment = null;
+				scheduleRecord.Attachment = string.Empty;
                 scheduleRecord.Name = work.Name;
-            }
+				scheduleRecord.Team = work.Substation.Team.Name;
+				scheduleRecord.ManagementOrganization = "ОДС";
+			}
             else if (maintainedEquipment is AdditionalDevice)
             {
                 AdditionalDevice additionalDevice = dataBase.AdditionalDevices.Read(maintainedEquipment.MaintainedEquipmentId); ;
                 scheduleRecord.Substation = additionalDevice.Attachment.Substation.Name;
                 scheduleRecord.Attachment = additionalDevice.Attachment.Name;
                 scheduleRecord.Name = additionalDevice.Name;
+				scheduleRecord.Team = additionalDevice.Attachment.Substation.Team.Name;
+				scheduleRecord.ManagementOrganization = additionalDevice.Attachment.ManagementOrganization.Name;
             }
             else if (maintainedEquipment is RelayDevice)
             {
@@ -253,6 +269,9 @@ namespace MaintenanceSchedule.Services
                 scheduleRecord.Substation = relayDevice.Attachment.Substation.Name;
                 scheduleRecord.Attachment = relayDevice.Attachment.Name;
                 scheduleRecord.Name = relayDevice.Name;
+				scheduleRecord.ElementBase = relayDevice.ElementBase.Name;
+				scheduleRecord.Team = relayDevice.Attachment.Substation.Team.Name;
+				scheduleRecord.ManagementOrganization = relayDevice.Attachment.ManagementOrganization.Name;		
             }
             MaintenanceRecord lastMaintenanceRecord = maintainedEquipment.MaintenanceRecords
                 .LastOrDefault(x => x.ActualMaintenanceDate != null);

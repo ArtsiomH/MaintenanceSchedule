@@ -52,8 +52,16 @@ namespace MaintenanceSchedule.Services
             if (dataBase.Schedules.GetAll().LastOrDefault(x => x.Condition == s_inDeveloping) != null)
             {
                 dataBase.Schedules.Delete(t);
+				dataBase.Save();
             }
         }
+
+		public void Sign(Schedule t)
+		{
+			t.Condition = s_signed;
+			dataBase.Schedules.Update(t);
+			dataBase.Save();
+		}
 
         public Schedule Get(int id)
         {

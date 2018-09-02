@@ -12,5 +12,6 @@ namespace MaintenanceSchedule.Interfaces
     interface IAdditionalWorkService : IBaseService<AdditionalWork>
     {
         ObservableCollection<AdditionalWork> Find(Func<AdditionalWork, bool> predicate);
-    }
+		void RescheduleRecord(AdditionalWork additionalWork, MaintenanceRecord record);
+	}
 }

@@ -25,6 +25,7 @@ namespace MaintenanceSchedule.ViewModel
         private RelayCommand m_open;
         private RelayCommand m_create;
         private RelayCommand m_delete;
+		private RelayCommand m_sign;
 
         public Schedule SelectedSchedule
         {
@@ -89,6 +90,17 @@ namespace MaintenanceSchedule.ViewModel
                 }));
             }
         }
+
+		public RelayCommand Sign
+		{
+			get
+			{
+				return m_sign ?? (m_sign = new RelayCommand(o =>
+				{
+					serviceUnitOfWork.Schedules.Sign(m_selectedSchedule);
+				}));
+			}
+		}
 
         /// <summary>
         /// конструктор

@@ -11,6 +11,9 @@ namespace MaintenanceSchedule.Model
     {
         public string Substation { get; set; }
         public string Attachment { get; set; }
+		public string ManagementOrganization { get; set; }
+		public string Team { get; set; }
+		public string ElementBase { get; set; }
 		public int PlannedDay { get; set; }
 		public string PlannedMonth { get; set; }
 		public int ActualDay { get; set; }
@@ -18,7 +21,7 @@ namespace MaintenanceSchedule.Model
         public DateTime? ActualMaintenanceDate { get; set; }
         public MaintenanceType ActualMaintenanceType { get; set; }
 		public bool IsPlanned { get; set; }	
-		public int MaintenanceRecordId { get; set; }	
-        public List<string> MaintenanceTypes { get; set; }
+		public int MaintenanceRecordId { get; set; }
+		public List<string> MaintenanceTypes { get; set; }
     }
 }

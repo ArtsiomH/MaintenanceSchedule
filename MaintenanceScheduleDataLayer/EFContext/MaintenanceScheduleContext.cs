@@ -38,12 +38,12 @@ namespace MaintenanceScheduleDataLayer.EFContext
             Database.Initialize(false);
         }
 
-        public MaintenanceScheduleContext() :base("name=ProbLoc")
-        {
-            string path = Directory.GetCurrentDirectory();
-            path += @"\MaintenanceSchedule\bin\Debug\";
-            AppDomain.CurrentDomain.SetData("DataDirectory", path);
-            Database.SetInitializer(new MaintenanceScheduleInitializer());
-        }
+        //public MaintenanceScheduleContext() :base("name=ProbLoc")
+        //{
+        //    string path = Directory.GetCurrentDirectory();
+        //    path += @"\MaintenanceSchedule\bin\Debug\";
+        //    AppDomain.CurrentDomain.SetData("DataDirectory", path);
+        //    Database.SetInitializer(new MaintenanceScheduleInitializer());
+        //}
     }
 }

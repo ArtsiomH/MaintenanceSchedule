@@ -104,8 +104,9 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Отметить проверку" Grid.Row="1" Command="{Binding Mark}" Margin="10" Width="120"/>                
-            </StackPanel>
+                <Button Content="Отметить проверку" Command="{Binding Mark}" Margin="10" Width="120"/>
+				<Button Content="Перенести проверку" Command="{Binding Reschsedule}" Margin="10" Width="120"/>
+			</StackPanel>
         </Grid>
         
 
